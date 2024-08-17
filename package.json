@@ -1,6 +1,7 @@
 {
   "name": "charlesemuchmore.dev",
   "version": "0.1.0",
+  "homepage": "https://charlesemuchmore.dev",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
