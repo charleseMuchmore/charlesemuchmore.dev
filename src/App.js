@@ -1,18 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import {Routes, Route} from 'react-router-dom'; //add Navigate later
+
+//pages
+import NoPage from './pages/NoPage';
+import Layout from './pages/Layout';
+
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import Learning from './pages/Learning';
+import History from './pages/History';
+import Interests from './pages/Interests';
+import Contact from './pages/Contact';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h2>
-          Hi there, looks like you've found my website!
-        </h2>
-        <p>My name is Charlese, and I am a web developer.</p>
-        <p>This site is currently under construction...</p>
-        <p>Check back later!</p>
-      </header>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/Projects" element={<Projects />} />
+          <Route path="/Learning" element={<Learning />} />
+          <Route path="/History" element={<History />} />
+          <Route path="/Interests" element={<Interests />} />
+          <Route path="/Contact" element={<Contact />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>             
+      </Routes>
     </div>
   );
 }

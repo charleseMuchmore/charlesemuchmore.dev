@@ -1,0 +1,44 @@
+.icon {
+    width: 2.5rem;
+    background: red;
+}
+
+.house {
+  width: 2rem;
+  height: 2rem;
+  background: url("../images/house.svg");
+  background-color: white;
+  background-blend-mode: normal;
+  margin: 0 1rem;
+}
+
+.moon {
+  width: 2rem;
+  height: 2rem;
+  background: url("../images/moon.svg");
+  background-color: white;
+  background-blend-mode: normal;
+}
+
+.border {
+  border: solid #F7F7F8 1px;
+}
+
+.full-y {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 100%;
+}
+
+.link {
+  height: 32px;
+}
+
+.auto-pad {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
