@@ -4,7 +4,7 @@ import EmailImage from "../images/mail.png";
 import FacebookImage from "../images/facebook.png";
 import TrailheadImage from "../images/trailhead.png";
 
-function Footer() {
+const Footer = () => {
 
     return (
     <footer className="">
