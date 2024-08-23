@@ -8,9 +8,9 @@ const NavBar = () => {
             <NavLink className="navbar-link house" to="/">
             </NavLink>
             <NavLink className="nav-link border auto-pad link" to="/Projects">Projects</NavLink>
-            <NavLink className="nav-link border auto-pad link" to="/Learning">Learning</NavLink>
+            {/* <NavLink className="nav-link border auto-pad link" to="/Learning">Learning</NavLink> */}
             <NavLink className="nav-link border auto-pad link" to="/History">History</NavLink>
-            <NavLink className="nav-link border auto-pad link" to="/Interests">Interests</NavLink>
+            {/* <NavLink className="nav-link border auto-pad link" to="/Interests">Interests</NavLink> */}
             <NavLink className="nav-link border auto-pad link" to="/Contact">Contact</NavLink>
         </div>
     )
