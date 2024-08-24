@@ -9,7 +9,8 @@ const Card = ({ props } ) => {
                 <div className="card-body">
                     <h5 className="card-title">{props.title}</h5>
                     <p className="card-text">{props.description}</p>
-                    <a href={props.link.value} className="btn btn-primary">{props.link.text}</a>
+                    <a href={props.link.github} className="btn btn-primary">{props.link.githubText}</a>
+                    {props.link.online !== "#" ? <a href={props.link.online} className="btn btn-primary">{props.link.onlineText}</a> : ""}
                 </div>
             </div>
         </div>

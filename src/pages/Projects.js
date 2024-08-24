@@ -7,7 +7,11 @@ function Projects() {
 
     const renderedProjects = projects.map((project) => {
         console.log("rendered Projects was entered!");
-        project.link.text = "View Project";
+        project.link.githubText = "View on Github";
+        if (project.link.online !== "#")
+        {
+            project.link.onlineText = "Try It Out";
+        }
         return <Card key={project.id} props={project}/>
     })
 
