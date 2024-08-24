@@ -3,6 +3,9 @@ import LinkedinImage from "../images/linkedin.png";
 import EmailImage from "../images/mail.png";
 import FacebookImage from "../images/facebook.png";
 import TrailheadImage from "../images/trailhead.png";
+import GithubImage from "../images/github.png";
+import TwitterImage from "../images/twitter.png";
+import InstagramImage from "../images/instagram.png";
 
 const Footer = () => {
 
@@ -16,6 +19,11 @@ const Footer = () => {
                     </a>
                 </div>
                 <div className="col">
+                    <a href="https://github.com/charleseMuchmore">
+                    <img alt="GitHub" src={GithubImage} className="socialLinkIcon"></img>
+                    </a>
+                </div>
+                <div className="col">
                     <a href="https://www.salesforce.com/trailblazer/profile">
                     <img alt="Trailhead" src={TrailheadImage} className="socialLinkIcon"></img>
                     </a>
@@ -26,7 +34,17 @@ const Footer = () => {
                     </a>
                 </div>
                 <div className="col">
-                    <a href="charlymuchmore@gmail.com">
+                    <a href="https://www.instagram.com/charlese80/">
+                    <img alt="Instagram" src={InstagramImage} className="socialLinkIcon"></img>
+                    </a>
+                </div>
+                <div className="col">
+                    <a href="https://x.com/CharleseMuch">
+                    <img alt="Twitter" src={TwitterImage} className="socialLinkIcon"></img>
+                    </a>
+                </div>
+                <div className="col">
+                    <a href="https://charlesemuchmore.dev/Contact">
                     <img alt="Email" src={EmailImage} className="socialLinkIcon"></img>
                     </a>
                 </div>
