@@ -1,5 +1,6 @@
 import './App.css';
 import {Routes, Route} from 'react-router-dom'; //add Navigate later
+import { useEffect, useContext } from 'react';
 
 //pages
 import NoPage from './pages/NoPage';
@@ -12,7 +13,17 @@ import History from './pages/History';
 import Interests from './pages/Interests';
 import Contact from './pages/Contact';
 
+import ProjectsContext from './context/projects';
+
+
 function App() {
+  const { fetchProjects } = useContext(ProjectsContext);
+
+  useEffect(() => {
+    fetchProjects();
+  }, []); 
+
+
   return (
     <div className="App">
       <Routes>
