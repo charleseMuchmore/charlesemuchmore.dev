@@ -4,24 +4,38 @@ import "./EmploymentTimeline.css";
 const jobs = [
   {
     id: 1,
-    title: "Intern",
-    company: "Wylight Technologies",
-    duration: "August 19, 2024-present",
-    description: "",
+    title: "Shift Lead",
+    company: "McDonald's",
+    duration: "October 2024 - Present",
+    description: "Led shifts by positioning people, identifying danger zones, delegating tasks, and solving problems.",
   },
   {
     id: 2,
+    title: "Tech Excelerator Student",
+    company: "Connected Lane County",
+    duration: "April 2022 - October 2024",
+    description: "Participated in a tech training experience.",
+  },
+  {
+    id: 3,
+    title: "Intern",
+    company: "Wylight Technologies",
+    duration: "August 19, 2024 - October 2024",
+    description: "Gained experience with development on a team.",
+  },
+  {
+    id: 4,
     title: "Intern",
     company: "Oregon Criminal Defense Lawyers Association",
     duration: "April 2024 - July 2024",
     description: "Developed and maintained client websites using modern frameworks.",
   },
   {
-    id: 3,
+    id: 5,
     title: "Crew Member",
     company: "McDonald's",
-    duration: "April 2022-present",
-    description: "",
+    duration: "April 2022 - October 2024",
+    description: "Carried out daily restaurant tasks, such as making sandwiches or taking orders.",
   },
   // Add more job entries here
 ];

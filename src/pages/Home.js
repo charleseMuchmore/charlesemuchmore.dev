@@ -15,6 +15,14 @@ function Home() {
             <img className="me" alt="charlese" src={me}></img>
             </div>
         </div>
+        {/* <div className="row bg-light">
+            <div className="col-sm-9 col-md-8 col-lg-6 ">
+                <img className="me" alt="charlese" src={me}></img>
+            </div>
+            <div className="col-sm-3 col-md-4 col-lg-6 m-auto">
+                <h1>Check out some of my projects</h1>
+            </div>
+        </div> */}
         <div className="row bg-light">
                 <h1>...</h1>
         </div>
