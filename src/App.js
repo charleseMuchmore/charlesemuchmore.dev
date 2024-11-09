@@ -1,4 +1,4 @@
-import './App.css';
+//import './App.css';
 import {Routes, Route} from 'react-router-dom'; //add Navigate later
 import { useEffect, useContext } from 'react';
 
