@@ -10,7 +10,7 @@ const Card = ({ props } ) => {
                     <h5 className="card-title">{props.title}</h5>
                     <p className="card-text">{props.description}</p>
                     <a href={props.link.github} className="btn btn-primary">{props.link.githubText}</a>
-                    {props.link.online !== "#" ? <a href={props.link.online} target="_blank" className="btn btn-primary">{props.link.onlineText}</a> : ""}
+                    {props.link.online !== "#" ? <a href={props.link.online} target="_blank" rel="noreferrer" className="btn btn-primary">{props.link.onlineText}</a> : ""}
                 </div>
             </div>
         </div>
