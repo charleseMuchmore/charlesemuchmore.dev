@@ -42,3 +42,10 @@
   align-items: center;
   justify-content: center;
 }
+
+.sticky {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+}
