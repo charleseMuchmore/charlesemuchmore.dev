@@ -42,7 +42,7 @@ function App() {
           <Route path="*" element={<NoPage />} />
         </Route>             
       </Routes>
-      <div>message</div>
+      <div>{message}</div>
     </div>
     );
 }
