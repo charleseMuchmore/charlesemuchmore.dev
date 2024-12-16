@@ -10,11 +10,6 @@
 //   </React.StrictMode>
 // );
 
-
-
-
-
-import './index.css';
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
@@ -33,10 +28,12 @@ const el = document.getElementById('root');
 const root = ReactDOM.createRoot(el);
 
 root.render(
-<PProvider>
-    <BrowserRouter>
+  <React.StrictMode>
+    <PProvider>
+      <BrowserRouter>
         <App />
-    </BrowserRouter>
-</PProvider>
+      </BrowserRouter>
+    </PProvider>
+  </React.StrictMode>
 
 );
