@@ -16,18 +16,18 @@ import Contact from './pages/Contact';
 import ProjectsContext from './context/projects';
 
 function App() {
-    //const [message, setMessage] = useState('');
+    const [message, setMessage] = useState('');
     const { fetchProjects } = useContext(ProjectsContext);
 
     useEffect(() => {
         fetchProjects();
     }); 
 
-    // useEffect(() => {
-    //     axios.get('http://localhost:3001/')
-    //         .then(response => setMessage(response.data))
-    //         .catch(error => console.error('Error:', error));
-    // }, []);
+    useEffect(() => {
+        axios.get('http://localhost:3001/')
+            .then(response => setMessage(response.data))
+            .catch(error => console.error('Error:', error));
+    }, []);
 
     return (
         <div className="App">
@@ -42,6 +42,7 @@ function App() {
           <Route path="*" element={<NoPage />} />
         </Route>             
       </Routes>
+      <div>message</div>
     </div>
     );
 }
