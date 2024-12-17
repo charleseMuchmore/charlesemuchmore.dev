@@ -1,0 +1,28 @@
+.me {
+    width: 28rem;
+    height: 28em;
+    border-radius: 50%;
+    margin: 50px 20px;
+}
+
+.a {
+    border: 1px solid black;
+}
+
+.socialLinkIcon {
+    width: 2.5rem;
+    border: black 1px solid;
+    border-radius: 25%;
+}
+
+.ghost-text {
+    color: #D3D3D3;
+}
+
+.bg-blue {
+    background-color: #3795BD;
+}
+
+.bg-offwhite {
+    background-color: #F7F7F8;
+}
