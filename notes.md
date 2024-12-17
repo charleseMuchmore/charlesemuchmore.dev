@@ -186,3 +186,59 @@ https://www.youtube.com/watch?v=a5qkPEod9ng
 __Note:__ Research on web form mailing - Nodemailer
 I'd like to look more into this module.
 	
+__Note:__ Nodemailer
+When creating a transporter: 
+```
+let transporter = nodemailer.createTransport(options[, defaults])
+```
+You can specify in the defaults if you want to set the same "from" address for every message. Likewise, in my use case, I would want to set the same "too" address for every message, to route all the messages from the webpage to me. 
+
+A helpful article with code snippets (snippet below too): https://mailtrap.io/blog/sending-emails-with-nodemailer/
+
+```
+// Import the Nodemailer library
+const nodemailer = require('nodemailer');
+
+// Create a transporter object
+const transporter = nodemailer.createTransport({
+  host: 'live.smtp.mailtrap.io',
+  port: 587,
+  secure: false, // use SSL
+  auth: {
+    user: '1a2b3c4d5e6f7g',
+    pass: '1a2b3c4d5e6f7g',
+  }
+});
+
+// Configure the mailoptions object
+const mailOptions = {
+  from: 'someone@email.com',
+  to: 'myaddress@email.com',
+  subject: 'Sending Email using Node.js',
+  text: 'That was easy!'
+};
+
+// Send the email
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(‘Error:’ error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
+```
+
+Use this snippet to verify that the server is ready to receive connections I think: 
+```
+// verify connection configuration
+transporter.verify(function (error, success) {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Server is ready to take our messages");
+  }
+});
+```
+Be aware though that this call only tests connection and authentication, but it does not check if the service allows you to use a specific envelope “From” address or not.
+
+Need to look into ethereal and understand if it could be useful for me.
