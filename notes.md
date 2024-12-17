@@ -183,6 +183,11 @@ __Note:__ Research on CICD - GitHub Actions?
 https://www.youtube.com/watch?v=a5qkPEod9ng
 (this guy uses docker but the workflow walkthrough and explainations of stuff like GitHub secrets are helpful.)
 
-__Note:__ Research on web form mailing - Nodemailer
-I'd like to look more into this module.
+__Note:__ Nodemailer:
+This module is cool. I have set up the backend with mock data, next step is to set up front end and get it to send real form data to the backend for emailing.
+
+Will want to look into node body-parser module to help parse the form data into something that will play nicely with nodemailer.
+
+Will also want to install the node cors package since the frontend and backend are seperate.
 	
+I have a chatgpt session open that has a lot of good code for this. https://chatgpt.com/c/675fc72d-d57c-800a-9f54-554929f8f068
