@@ -191,3 +191,7 @@ Will want to look into node body-parser module to help parse the form data into 
 Will also want to install the node cors package since the frontend and backend are seperate.
 	
 I have a chatgpt session open that has a lot of good code for this. https://chatgpt.com/c/675fc72d-d57c-800a-9f54-554929f8f068
+
+Update:
+
+I have the majority of the basic infrastructure for this feature, but there is a browser console error on email post, I just don't have the brainpower to debug rn.
