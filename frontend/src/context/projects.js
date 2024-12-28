@@ -1,14 +1,21 @@
-import { createContext, useState, useCallback } from 'react';
+import { createContext, useState, useCallback, useEffect } from 'react';
 import axios from 'axios';
 
 const ProjectsContext = createContext();
 
 function PProvider({ children }) {
     const [projects, setProjects] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     //projects
     const fetchProjects = useCallback(async () => {
-        //const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects`);
+        try {
+            setLoading(true);
+            // Uncomment below to fetch from your server
+            // const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/projects`);
+
+            // Mocked response for now
         const response = { data: [
             {
                 id: 1,
@@ -142,6 +149,13 @@ function PProvider({ children }) {
             },
         ]}
         setProjects(response.data);
+            setError(null);
+        } catch (err) {
+            console.error("Failed to fetch projects", err);
+            setError("Failed to fetch projects. Please try again later.");
+        } finally {
+            setLoading(false);
+        }
     }, []);
 
     //image placeholder: https://via.placeholder.com/300x200
