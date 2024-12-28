@@ -10,19 +10,25 @@ const port = 3001;
 
 //middleware
 app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Or '*' for all origins
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+  });
+app.use(bodyParser.json());
 
-//transporter
+//transporter (login)
 const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
+    host: smtp_host,
+    port: smtp_port,
     auth: {
         type: "login",
         user: smtp_user,
         pass: smtp_key
     }
 });
+
+
 // verify connection configuration
 transporter.verify(function (error, success) {
     if (error) {
@@ -40,11 +46,16 @@ app.post('/send-email', (req, res) => {
 
     // Email options
     const mailOptions = {
-        from: email, // Sender's email
+        from: {
+            name: req.body.name,
+            address: smtp_user,
+          }, // Sender's email
         to: smtp_user, // Replace with your email
-        subject: 'New Contact Form Submission',
+        subject: `NEW Contact Form Submission (${name})`,
         text: `You have a new message from ${name} (${email}):\n\n${message}`,
+        replyTo: email,
     };
+      
     
     // Send the email
     transporter.sendMail(mailOptions, (error, info) => {
