@@ -182,7 +182,13 @@ __Instructions on how to update coming soon...__
 __Note:__ Research on CICD - GitHub Actions?
 https://www.youtube.com/watch?v=a5qkPEod9ng
 (this guy uses docker but the workflow walkthrough and explainations of stuff like GitHub secrets are helpful.)
+	
+__Note:__ Nodemailer
 
-__Note:__ Nodemailer:
+Okay so, apparently Nodemailer cannot send emails from another person's email, which makes sense. Here is the article that put me on to this tidbit: https://stackoverflow.com/questions/69221631/nodemailer-error-recipient-command-failed-553-5-7-1-sender-address-rejected
 
-I have the majority of the basic infrastructure for this feature, but there is a browser console error on email post, I just don't have the brainpower to debug rn.
+However, for my purposes that's fine. I can just send emails to myself in the backend, and add the sender's email from the form as a replyTo option. This solution is just fine for form responses.
+
+Still need to get this into a production format. 
+
+Also need to add confirmation on the webpage that the email was sent and then clear the form lol.
