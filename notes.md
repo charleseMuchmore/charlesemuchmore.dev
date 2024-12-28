@@ -182,13 +182,44 @@ __Instructions on how to update coming soon...__
 __Note:__ Research on CICD - GitHub Actions?
 https://www.youtube.com/watch?v=a5qkPEod9ng
 (this guy uses docker but the workflow walkthrough and explainations of stuff like GitHub secrets are helpful.)
+
+__Note:__ Nodemailer:
+This module is cool. I have set up the backend with mock data, next step is to set up front end and get it to send real form data to the backend for emailing.
+
+Will want to look into node body-parser module to help parse the form data into something that will play nicely with nodemailer.
+
+Will also want to install the node cors package since the frontend and backend are seperate.
 	
-__Note:__ Nodemailer
+I have a chatgpt session open that has a lot of good code for this. https://chatgpt.com/c/675fc72d-d57c-800a-9f54-554929f8f068
+
+Update:
+
+Currently the issue is with authentication. It looks like username and password isn't enough. I am reading the documentation now
+https://www.nodemailer.com/smtp/oauth2/
+But it may be worth changing my authentication method to OAuth2
+
+Consider looking into email engine?
 
 Okay so, apparently Nodemailer cannot send emails from another person's email, which makes sense. Here is the article that put me on to this tidbit: https://stackoverflow.com/questions/69221631/nodemailer-error-recipient-command-failed-553-5-7-1-sender-address-rejected
 
 However, for my purposes that's fine. I can just send emails to myself in the backend, and add the sender's email from the form as a replyTo option. This solution is just fine for form responses.
 
-Still need to get this into a production format. 
+__Note:__ Testing:
+I need to develop tests for this site. This will require looking into the current testing framework documentation, and developing test for existing features. Currently the email form submission is the only feature worth testing.
 
-Also need to add confirmation on the webpage that the email was sent and then clear the form lol.
+## Next Steps
+* Improve UI
+    * Style the form.
+    * Add colors for success/fail form submission message.
+    * Once submitted, the page should change from a form with stuff in it to a page with a success message and maybe links to other parts of the website.
+    * conduct any other UI improvements desired.
+* Clean up Code
+    * Add .env for frontend too
+    * Remove unused code
+    * abstract and clean up as neccesary
+* Research for Production
+    * study what the current production setup is, document it
+    * consider improvements, including test servers?
+    * document existing and desired setup, create steps to move towards desired setup and workflow
+* Move to Production 
+    * Once steps are lined out, begin pushing a working production build with the new contact form feature.

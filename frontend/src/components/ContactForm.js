@@ -74,6 +74,7 @@ const ContactForm = () => {
     e.preventDefault();
     try {
       let data = JSON.stringify(formData);
+      setResponseMessage('Email sent!');
       const response = await axios.post('http://localhost:3001/send-email', data, {
         headers: {
           'Content-Type': 'application/json'
