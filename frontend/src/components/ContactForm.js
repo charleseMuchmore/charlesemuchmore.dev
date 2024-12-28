@@ -73,7 +73,7 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3000/send-email', formData);
+      const response = await axios.post('http://localhost:3001/send-email', formData);
 
       setResponseMessage('Email sent successfully!');
       console.log('Server response:', response.data);

@@ -10,20 +10,33 @@ const port = 3001;
 
 //middleware
 app.use(cors());
-app.use(bodyParser.json());
+
+//transporter
+const transporter = nodemailer.createTransport({
+    service: "Gmail",
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+        type: "login",
+        user: smtp_user,
+        pass: smtp_key
+    }
+});
+// verify connection configuration
+transporter.verify(function (error, success) {
+    if (error) {
+    console.log(error);
+    } else {
+    console.log("Server is ready to take our messages");
+    }
+});
 
 
 // Route to send emails
 app.post('/send-email', (req, res) => {
     const { name, email, message } = req.body;
-    
-    const transporter = nodemailer.createTransport({
-        service: "Gmail",
-        auth: {
-            user: smtp_user,
-            pass: smtp_key
-        }
-    });
+  
 
     // Email options
     const mailOptions = {
