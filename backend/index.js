@@ -1,4 +1,4 @@
-const { smtp_key, smtp_host, smtp_port, smtp_user, app_port } = require('./config');
+const { smtp_key, smtp_host, smtp_port, smtp_user, app_port, app_protocol, app_domain } = require('./config');
 
 //app setup
 const express = require('express');
@@ -11,7 +11,7 @@ const port = app_port;
 
 //middleware
 app.use(cors());
-let url = `${protocol}://${domain}:${port}`
+let url = `${app_protocol}://${app_domain}:${port}`
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', url); // Or '*' for all origins
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
