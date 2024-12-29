@@ -209,7 +209,7 @@ I need to develop tests for this site. This will require looking into the curren
 
 ## Next Steps
 * Improve UI
-    * Style the form.
+    * Style the form. ✅
     * Add colors for success/fail form submission message.
     * Once submitted, the page should change from a form with stuff in it to a page with a success message and maybe links to other parts of the website.
     * conduct any other UI improvements desired.

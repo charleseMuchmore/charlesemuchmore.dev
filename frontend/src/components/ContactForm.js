@@ -53,6 +53,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import "./ContactForm.css";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -69,22 +70,27 @@ const ContactForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // Method to send emails
+  const mail = async (data) => {
+    return await axios.post('http://localhost:3001/send-email', data, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  }
+
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     try {
       let data = JSON.stringify(formData);
-      setResponseMessage('Email sent!');
-      const response = await axios.post('http://localhost:3001/send-email', data, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      setResponseMessage({type: true, text: 'Email sent successfully!'});
+      let response = await mail(data);
 
-      setResponseMessage('Email sent successfully!');
       console.log('Server response:', response.data);
     } catch (error) {
-      setResponseMessage('Error sending email. Please try again.');
+      setResponseMessage({type: false, text: 'Error sending email. Please try again.'});
       console.error('Error:', error.response?.data?.message || error.message);
     }
   };
@@ -95,45 +101,32 @@ const ContactForm = () => {
         <form id="contactForm" onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name</label>
-            <input type="text" class="form-control" placeholder="Name" id="name" name="name" value={formData.name} onChange={handleChange} required />
+            <input type="text" className="form-control" placeholder="Name" id="name" name="name" value={formData.name} onChange={handleChange} required />
           </div>
 
           <div className="form-group">
             <label htmlFor="email">Email</label>
-            <input type="email" class="form-control" placeholder="Enter Email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+            <input type="email" className="form-control" placeholder="Enter Email" id="email" name="email" value={formData.email} onChange={handleChange} required />
           </div>
 
           <div className="form-group">
             <label htmlFor="message">Message</label>
-            <textarea id="message" class="form-control" placeholder="Write your message here"name="message" rows="4" cols="50" value={formData.message} onChange={handleChange} required></textarea>
+            <textarea id="message" className="form-control" placeholder="Write your message here"name="message" rows="4" cols="50" value={formData.message} onChange={handleChange} required></textarea>
           </div>
 
           
           
-          <button type="submit" className="btn btn-primary">Send</button>
+          <button type="submit" className="btn bg-blue txt-light">Send</button>
 
         </form>
 
-        <p>{responseMessage}</p>
+        {responseMessage != '' ? 
+        <p className={responseMessage.type ? "alert alert-success" : "alert alert-danger"} role="alert">{responseMessage.text}</p>
+        :
+        ""}
       </div>
     );
   };
 
 
   export default ContactForm;
-
-  // <div className="container">
-  //       <h1>Contact Me</h1>
-  //       <form id="contactForm" onSubmit={handleSubmit}>
-  //         <label htmlFor="email">Email:</label>
-  //         <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
-
-  //         <label htmlFor="message">Message:</label>
-  //         <textarea id="message" name="message" rows="4" cols="50" value={formData.message} onChange={handleChange} required></textarea>
-          
-  //         <button type="submit">Send</button>
-
-  //       </form>
-
-  //       <p>{responseMessage}</p>
-  //     </div>
