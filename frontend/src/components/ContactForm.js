@@ -93,16 +93,24 @@ const ContactForm = () => {
       <div className="container">
         <h1>Contact Me</h1>
         <form id="contactForm" onSubmit={handleSubmit}>
-          <label htmlFor="name">Name:</label>
-          <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} required />
-          
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+          <div className="form-group">
+            <label htmlFor="name">Name</label>
+            <input type="text" class="form-control" placeholder="Name" id="name" name="name" value={formData.name} onChange={handleChange} required />
+          </div>
 
-          <label htmlFor="message">Message:</label>
-          <textarea id="message" name="message" rows="4" cols="50" value={formData.message} onChange={handleChange} required></textarea>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input type="email" class="form-control" placeholder="Enter Email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="message">Message</label>
+            <textarea id="message" class="form-control" placeholder="Write your message here"name="message" rows="4" cols="50" value={formData.message} onChange={handleChange} required></textarea>
+          </div>
+
           
-          <button type="submit">Send</button>
+          
+          <button type="submit" className="btn btn-primary">Send</button>
 
         </form>
 
@@ -113,3 +121,19 @@ const ContactForm = () => {
 
 
   export default ContactForm;
+
+  // <div className="container">
+  //       <h1>Contact Me</h1>
+  //       <form id="contactForm" onSubmit={handleSubmit}>
+  //         <label htmlFor="email">Email:</label>
+  //         <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
+
+  //         <label htmlFor="message">Message:</label>
+  //         <textarea id="message" name="message" rows="4" cols="50" value={formData.message} onChange={handleChange} required></textarea>
+          
+  //         <button type="submit">Send</button>
+
+  //       </form>
+
+  //       <p>{responseMessage}</p>
+  //     </div>
