@@ -15,7 +15,6 @@ function Projects() {
         return <Card key={project.id} props={project}/>
     })
 
-
     return (
         <div className="container my-5">
             <h1 className="text-center mb-4">My Projects</h1>
