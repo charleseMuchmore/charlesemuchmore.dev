@@ -11,8 +11,9 @@ const port = app_port;
 
 //middleware
 app.use(cors());
+let url = `${protocol}://${domain}:${port}`
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Or '*' for all origins
+    res.header('Access-Control-Allow-Origin', url); // Or '*' for all origins
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   });
