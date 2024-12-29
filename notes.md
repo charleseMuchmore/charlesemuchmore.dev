@@ -210,16 +210,20 @@ I need to develop tests for this site. This will require looking into the curren
 ## Next Steps
 * Improve UI
     * Style the form. ✅
-    * Add colors for success/fail form submission message.
+    * Add colors for success/fail form submission message. ✅ (toastr? dismissing?)https://getbootstrap.com/docs/4.0/components/alerts/#dismissing
     * Once submitted, the page should change from a form with stuff in it to a page with a success message and maybe links to other parts of the website.
     * conduct any other UI improvements desired.
-* Clean up Code
-    * Add .env for frontend too
-    * Remove unused code
-    * abstract and clean up as neccesary
+* Clean up Code ✅
+    * Add .env for frontend too ✅ (for some reason having a config.js was not working so just did it manually)
+    * Remove unused code ✅
+    * abstract and clean up as neccesary ✅
 * Research for Production
     * study what the current production setup is, document it
     * consider improvements, including test servers?
     * document existing and desired setup, create steps to move towards desired setup and workflow
 * Move to Production 
     * Once steps are lined out, begin pushing a working production build with the new contact form feature.
+
+## backlog
+* put projects on server too?
+* optimize project css, maybe a global file

@@ -1,12 +1,13 @@
-const { smtp_key, smtp_host, smtp_port, smtp_user } = require('./config');
+const { smtp_key, smtp_host, smtp_port, smtp_user, app_port } = require('./config');
 
+//app setup
 const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const app = express();
-const port = 3001;
+const port = app_port;
 
 //middleware
 app.use(cors());
@@ -17,7 +18,7 @@ app.use((req, res, next) => {
   });
 app.use(bodyParser.json());
 
-//transporter (login)
+//email transporter setup
 const transporter = nodemailer.createTransport({
     host: smtp_host,
     port: smtp_port,
@@ -28,21 +29,18 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-
-// verify connection configuration
+// verify transport server connection configuration
 transporter.verify(function (error, success) {
     if (error) {
     console.log(error);
     } else {
-    console.log("Server is ready to take our messages");
+    console.log("Email transporter is ready for duty");
     }
 });
 
-
-// Route to send emails
+//handle emails
 app.post('/send-email', (req, res) => {
     const { name, email, message } = req.body;
-  
 
     // Email options
     const mailOptions = {
@@ -67,39 +65,6 @@ app.post('/send-email', (req, res) => {
     });
 });
 
-
-// // const mailman = nodemailer.createTransport({
-// //   host: smtp_host,
-// //   port: smtp_port,
-// //   secure: true, // true for port 465, false for other ports
-// //   auth: {
-// //     user: smtp_user,
-// //     pass: smtp_key,
-// //   },
-// // });
-
-// // let email = async () => {
-// //   // send mail with defined transport object
-// //   const info = await mailman.sendMail({
-// //     from: 'charlymuchmore@gmail.com', // sender address
-// //     to: "she@charlesemuchmore.dev", // list of receivers
-// //     subject: "Hello ✔", // Subject line
-// //     text: "Hello world?", // plain text body
-// //     html: "<b>Hello world?</b>", // html body
-// //   });
-
-// //   console.log("Message sent: %s", info.messageId);
-// //   // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@charlesemuchmore.dev>
-// // }
-
-// email().catch(console.error);
-
-  
-
-
-// app.get('/', (req, res) => {
-//     res.send('Hello from the backend!');
-// });
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
