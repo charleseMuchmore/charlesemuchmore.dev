@@ -1,7 +1,6 @@
 import "./Home.css";
 import me from '../images/menoback2.jpg';
 
-
 function Home() {
     return (
     <div className="container-fluid">
