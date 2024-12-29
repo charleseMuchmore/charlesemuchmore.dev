@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import "./ContactForm.css";
 
-const protocol = process.env.PROTOCOL;
-const domain = process.env.DOMAIN;
-const port = process.env.APP_PORT;
-
 const ContactForm = () => {
+  const protocol = "https";
+  const domain = "charlesemuchmore.dev";
+  const port = "4001";
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
