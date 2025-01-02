@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import "./ContactForm.css";
 
-const protocol = process.env.PROTOCOL;
-const domain = process.env.DOMAIN;
-const port = process.env.APP_PORT;
-
 const ContactForm = () => {
+  // const protocol = "https";
+  // const domain = "charlesemuchmore.dev";
+  // const port = "4001";
+  const protocol = "http";
+  const domain = "localhost";
+  const port = "3001";
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,28 +26,30 @@ const ContactForm = () => {
 
   // Send emails
   const mail = async (data) => {
-    let url = `${protocol}://${domain}:${port}`
-    return await axios.post(`${url}/send-email`, data, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-  }
-
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
+    let url = `${protocol}://${domain}:${port}`;
     try {
-      let data = JSON.stringify(formData);
-      setResponseMessage({type: true, text: 'Email sent successfully!'});
-      let response = await mail(data);
 
+      let response = await axios.post(`${url}/send-email`, data, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      setResponseMessage({type: true, text: 'Email sent successfully!'});
       console.log('Server response:', response.data);
     } catch (error) {
       setResponseMessage({type: false, text: 'Error sending email. Please try again.'});
       console.error('Error:', error.response?.data?.message || error.message);
     }
+  }
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    let data = JSON.stringify(formData);
+    await mail(data);
   };
 
   return (

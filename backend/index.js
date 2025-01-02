@@ -1,4 +1,4 @@
-const { smtp_key, smtp_host, smtp_port, smtp_user, app_port } = require('./config');
+const { smtp_key, smtp_host, smtp_port, smtp_user, app_port, app_protocol, app_domain } = require('./config');
 
 //app setup
 const express = require('express');
@@ -11,7 +11,9 @@ const port = app_port;
 
 //middleware
 app.use(cors());
+let url = `${app_protocol}://${app_domain}:${port}`
 app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', url); // Or '*' for all origins
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Or '*' for all origins
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
@@ -53,6 +55,7 @@ app.post('/send-email', (req, res) => {
         text: `You have a new message from ${name} (${email}):\n\n${message}`,
         replyTo: email,
     };
+    console.log("about to send...");
       
     
     // Send the email
@@ -60,8 +63,12 @@ app.post('/send-email', (req, res) => {
         if (error) {
             console.error('Error sending email:', error);
             return res.status(500).json({message: 'Failed to send email.'});
+        } else if (info) {
+            console.log("Email sent: ", info);
+            res.status(200).json({message: 'Email sent successfully!'});
+        } else {
+            res.status(100).json({message: "Failed to send email, no further information available."});
         }
-        res,status(200),json({message: 'Email sent successfully!'});
     });
 });
 
