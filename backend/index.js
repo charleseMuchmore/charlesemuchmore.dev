@@ -14,7 +14,7 @@ app.use(cors());
 let url = `${app_protocol}://${app_domain}:${port}`
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', url); // Or '*' for all origins
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // Or '*' for all origins
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); 
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   });
@@ -55,8 +55,7 @@ app.post('/send-email', (req, res) => {
         text: `You have a new message from ${name} (${email}):\n\n${message}`,
         replyTo: email,
     };
-    console.log("about to send...");
-      
+     
     
     // Send the email
     transporter.sendMail(mailOptions, (error, info) => {
@@ -71,7 +70,6 @@ app.post('/send-email', (req, res) => {
         }
     });
 });
-
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

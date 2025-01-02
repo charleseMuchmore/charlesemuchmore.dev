@@ -3,9 +3,6 @@ import axios from 'axios';
 import "./ContactForm.css";
 
 const ContactForm = () => {
-  // const protocol = "https";
-  // const domain = "charlesemuchmore.dev";
-  // const port = "4001";
   const protocol = "http";
   const domain = "localhost";
   const port = "3001";
@@ -28,7 +25,6 @@ const ContactForm = () => {
   const mail = async (data) => {
     let url = `${protocol}://${domain}:${port}`;
     try {
-
       let response = await axios.post(`${url}/send-email`, data, {
         method: 'POST',
         headers: {
