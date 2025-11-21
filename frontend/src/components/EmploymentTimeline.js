@@ -6,8 +6,8 @@ const jobs = [
     id: 1,
     title: "Shift Lead",
     company: "McDonald's",
-    duration: "October 2024 - Present",
-    description: "Led shifts by positioning people, identifying danger zones, delegating tasks, and solving problems.",
+    duration: "October 2024 - March 2025",
+    description: "Led shifts by positioning people in strategic roles within the restaurant, identifying danger zones, delegating tasks, and solving problems.",
   },
   {
     id: 2,
@@ -36,6 +36,13 @@ const jobs = [
     company: "McDonald's",
     duration: "April 2022 - October 2024",
     description: "Carried out daily restaurant tasks, such as making sandwiches or taking orders.",
+  },
+  {
+    id: 6,
+    title: "IT Specialist",
+    company: "Comfort Flow Heating",
+    duration: "March 2025 - Present",
+    description: "Handling IT Tickets and support requests, provisioning new and replacement devices, managing accounts in Microsoft 365.",
   },
   // Add more job entries here
 ];
