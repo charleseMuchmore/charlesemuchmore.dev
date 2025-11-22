@@ -28,7 +28,7 @@ const jobs = [
     title: "Temporary Intern",
     company: "Wylight Technologies",
     duration: "August 2024 - October 2024",
-    description: "Gained experience developing software products with development on a team.",
+    description: "Gained experience developing software products on a team.",
   },
   {
     id: 5,
