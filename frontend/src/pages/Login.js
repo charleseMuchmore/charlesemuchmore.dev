@@ -1,7 +1,9 @@
+import LoginForm from '../components/LoginForm.js';
+
 function Login() {
     return (
         <div>
-            Hai this is login page
+            <LoginForm />
         </div>
     )
 }
