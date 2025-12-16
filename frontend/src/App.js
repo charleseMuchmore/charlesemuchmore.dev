@@ -8,6 +8,7 @@ import NoPage from './pages/NoPage';
 import Layout from './pages/Layout';
 
 import Home from './pages/Home';
+import Login from './pages/Login';
 import Projects from './pages/Projects';
 import Learning from './pages/Learning';
 import History from './pages/History';
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path="/Login" element={<Login />} />
           <Route path="/Projects" element={<Projects />} />
           <Route path="/Learning" element={<Learning />} />
           <Route path="/History" element={<History />} />
