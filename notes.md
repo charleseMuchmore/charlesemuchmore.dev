@@ -227,3 +227,49 @@ I need to develop tests for this site. This will require looking into the curren
 ## backlog
 * put projects on server too?
 * optimize project css, maybe a global file
+
+
+
+
+
+
+
+# New Usage Notes
+
+* While developing...
+* ensure both .env files have the local or dev variables uncommented, not the prod ones
+* Run the frontend by typing npm run start from the frontend folder
+* Run the backend by typing npm run start in the backend folder (nodemon should say its running on whatever port is in the .env)
+* Check if frontend can reach backend by typing curl.exe http://localhost:3001/auth
+    * If it returns a status of ok, it is connecting
+    * you can also check any other route by replacing "auth" with the desired route
+
+## Backend:
+The backend acts like a true, seperated backend now in development. If I want to make any requests, I must define behavior for those request types for each route. 
+
+There are generally three types of things the backend can do and provide to the world.
+1. Routes - HTTP input/output
+2. Services - Business logic
+3. External Systems - Email, DB, other people's APIs
+
+### Routes
+In the /routes folder, there is each general route group. I can define all of my request types, including POST, GET, DELETE, etc.
+
+To make those routes actually available though I need to app.use them in index.js.
+```app.use("/route_name", require("./routes/route_name"));```
+
+Once you create the route and make it available in the index.js file, the frontend can call that route and the backend will do whatever was defined for it.
+
+Test this by running a curl request from the frontend folder:
+```curl.exe http://localhost:3001/route_name_you_want_to_test```
+
+We use curl.exe instead of just curl because just curl is an alias for a different weird windows command that doesn't do the same thing. Using curl.exe utilizes the real curl.
+
+Obviously, if you are trying to test this in production, you would change the url but the path would be the same. If you change the port for this project, we have to change the port in the curl request, etc.
+
+### Services
+Services are ways we implement business logic. Routes use our serviced via functions, which are defined and provided to the routes by the services.
+
+For example, there is a route POST /contact, intended to use when someone is trying to contact me via the form on my website. That route connects the requester with our mailer service via something like "sendContactEmail()", which is a function provided by our mailer service. That function itself uses the nodemailer module internally.
+
+## Frontend:
