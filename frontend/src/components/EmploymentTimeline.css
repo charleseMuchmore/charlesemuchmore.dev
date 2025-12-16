@@ -1,0 +1,33 @@
+.timeline-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+.timeline-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px 0;
+  width: 80%;
+  max-width: 600px;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 0.8s ease-in-out;
+}
+
+.timeline-card.fly-in-left {
+  transform: translateX(-100%);
+}
+
+.timeline-card.fly-in-right {
+  transform: translateX(100%);
+}
+
+.timeline-card.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+  
