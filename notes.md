@@ -183,62 +183,47 @@ __Note:__ Research on CICD - GitHub Actions?
 https://www.youtube.com/watch?v=a5qkPEod9ng
 (this guy uses docker but the workflow walkthrough and explainations of stuff like GitHub secrets are helpful.)
 
-__Note:__ Research on web form mailing - Nodemailer
-I'd like to look more into this module.
+__Note:__ Nodemailer:
+This module is cool. I have set up the backend with mock data, next step is to set up front end and get it to send real form data to the backend for emailing.
+
+Will want to look into node body-parser module to help parse the form data into something that will play nicely with nodemailer.
+
+Will also want to install the node cors package since the frontend and backend are seperate.
 	
-__Note:__ Nodemailer
-When creating a transporter: 
-```
-let transporter = nodemailer.createTransport(options[, defaults])
-```
-You can specify in the defaults if you want to set the same "from" address for every message. Likewise, in my use case, I would want to set the same "too" address for every message, to route all the messages from the webpage to me. 
+I have a chatgpt session open that has a lot of good code for this. https://chatgpt.com/c/675fc72d-d57c-800a-9f54-554929f8f068
 
-A helpful article with code snippets (snippet below too): https://mailtrap.io/blog/sending-emails-with-nodemailer/
+Update:
 
-```
-// Import the Nodemailer library
-const nodemailer = require('nodemailer');
+Currently the issue is with authentication. It looks like username and password isn't enough. I am reading the documentation now
+https://www.nodemailer.com/smtp/oauth2/
+But it may be worth changing my authentication method to OAuth2
 
-// Create a transporter object
-const transporter = nodemailer.createTransport({
-  host: 'live.smtp.mailtrap.io',
-  port: 587,
-  secure: false, // use SSL
-  auth: {
-    user: '1a2b3c4d5e6f7g',
-    pass: '1a2b3c4d5e6f7g',
-  }
-});
+Consider looking into email engine?
 
-// Configure the mailoptions object
-const mailOptions = {
-  from: 'someone@email.com',
-  to: 'myaddress@email.com',
-  subject: 'Sending Email using Node.js',
-  text: 'That was easy!'
-};
+Okay so, apparently Nodemailer cannot send emails from another person's email, which makes sense. Here is the article that put me on to this tidbit: https://stackoverflow.com/questions/69221631/nodemailer-error-recipient-command-failed-553-5-7-1-sender-address-rejected
 
-// Send the email
-transporter.sendMail(mailOptions, function(error, info){
-  if (error) {
-    console.log(‘Error:’ error);
-  } else {
-    console.log('Email sent: ' + info.response);
-  }
-});
-```
+However, for my purposes that's fine. I can just send emails to myself in the backend, and add the sender's email from the form as a replyTo option. This solution is just fine for form responses.
 
-Use this snippet to verify that the server is ready to receive connections I think: 
-```
-// verify connection configuration
-transporter.verify(function (error, success) {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("Server is ready to take our messages");
-  }
-});
-```
-Be aware though that this call only tests connection and authentication, but it does not check if the service allows you to use a specific envelope “From” address or not.
+__Note:__ Testing:
+I need to develop tests for this site. This will require looking into the current testing framework documentation, and developing test for existing features. Currently the email form submission is the only feature worth testing.
 
-Need to look into ethereal and understand if it could be useful for me.
+## Next Steps
+* Improve UI
+    * Style the form. ✅
+    * Add colors for success/fail form submission message. ✅ (toastr? dismissing?)https://getbootstrap.com/docs/4.0/components/alerts/#dismissing
+    * Once submitted, the page should change from a form with stuff in it to a page with a success message and maybe links to other parts of the website.
+    * conduct any other UI improvements desired.
+* Clean up Code ✅
+    * Add .env for frontend too ✅ (for some reason having a config.js was not working so just did it manually)
+    * Remove unused code ✅
+    * abstract and clean up as neccesary ✅
+* Research for Production
+    * study what the current production setup is, document it
+    * consider improvements, including test servers?
+    * document existing and desired setup, create steps to move towards desired setup and workflow
+* Move to Production 
+    * Once steps are lined out, begin pushing a working production build with the new contact form feature.
+
+## backlog
+* put projects on server too?
+* optimize project css, maybe a global file

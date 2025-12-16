@@ -1,6 +1,5 @@
 import {Routes, Route} from 'react-router-dom'; //add Navigate later
 import React, { useEffect, useState, useContext } from 'react';
-import axios from 'axios';
 
 //pages
 import NoPage from './pages/NoPage';
@@ -16,18 +15,12 @@ import Contact from './pages/Contact';
 import ProjectsContext from './context/projects';
 
 function App() {
-    const [message, setMessage] = useState('');
+    const [message] = useState('');
     const { fetchProjects } = useContext(ProjectsContext);
 
     useEffect(() => {
         fetchProjects();
-    }); 
-
-    useEffect(() => {
-        axios.get('http://localhost:3001/')
-            .then(response => setMessage(response.data))
-            .catch(error => console.error('Error:', error));
-    }, []);
+    }, []); 
 
     return (
       <div className="App">
