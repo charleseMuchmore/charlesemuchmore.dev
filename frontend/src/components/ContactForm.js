@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import "./ContactForm.css";
 
 const ContactForm = () => {
-  const protocol = "http";
-  const domain = "localhost";
-  const port = "3001";
 
   const [formData, setFormData] = useState({
     name: '',
@@ -23,14 +20,11 @@ const ContactForm = () => {
 
   // Send emails
   const mail = async (data) => {
-    let url = `${protocol}://${domain}:${port}`;
+    let url = process.env.REACT_APP_API_URL;
+    console.log(url);
+    console.log(data);
     try {
-      let response = await axios.post(`${url}/send-email`, data, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      let response = await axios.post(`${url}/contact`, data);
 
       setResponseMessage({type: true, text: 'Email sent successfully!'});
       console.log('Server response:', response.data);
@@ -44,8 +38,9 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let data = JSON.stringify(formData);
-    await mail(data);
+    //let data = JSON.stringify(formData);
+    //await mail(data);
+    await mail(formData);
   };
 
   return (

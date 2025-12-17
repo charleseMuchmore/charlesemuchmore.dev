@@ -1,0 +1,13 @@
+const mysql = require("mysql2/promise");
+const config = require("./config");
+
+const pool = mysql.createPool({
+  host: config.db_host,
+  user: config.db_user,
+  password: config.db_pass,
+  database: config.db_name,
+  waitForConnections: true,
+  connectionLimit: 10,
+});
+
+module.exports = pool;
