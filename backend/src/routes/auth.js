@@ -1,7 +1,26 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcrypt");
+const pool = require("../db");
 
-router.get("/auth", (req, res) => {
+
+// Ensuring all passwords in DB are hashed with bcrypt... this also is some good code to reuse for password reset functionality
+// (async () => {
+//     const [users] = await pool.query("SELECT UID, Password FROM Users");
+
+//     for (const user of users) {
+//         const hash = await bcrypt.hash(user.Password, 10);
+//         await pool.query(
+//             "UPDATE Users SET Password = ? WHERE UID = ?",
+//             [hash, user.UID]
+//         );
+//     }
+
+//     console.log("Password migration complete.");
+//     process.exit();
+// })();
+
+router.get("/login", (req, res) => {
     res.json({ status: "OK" })
 });
 
@@ -13,7 +32,7 @@ router.post("/login", async (req, res) => {
 
     try {
         const [rows] = await pool.query(
-            "SELECT * FROM USERS WHERE username =?",
+            "SELECT * FROM Users WHERE Username =?",
             [username]
         );
 
@@ -27,14 +46,27 @@ router.post("/login", async (req, res) => {
         //     return res.status(401).json({ error: "Invalid credentials" });
 
         // If you use bcrypt:
-        const match = await bcrypt.compare(password, user.password);
+        const match = await bcrypt.compare(password, user.Password);
         if (!match) return res.status(401).json({ error: "Invalid credentials" });
 
-        res.json({ success: true, user: { id: user.id, username: user.username } });
+        res.json({ success: true, user: { id: user.UID, username: user.Username } });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Server error" });
     }
 });
+
+//untested - need to add error handling
+router.post("reset-password", async (req, res) => {
+    const user = await pool.query("SELECT UID, Password FROM Users WHERE Username = ?" [req.username]);
+
+    const hash = await bcrypt.hash(req.password, 10);
+        await pool.query(
+            "UPDATE Users SET Password = ? WHERE UID = ?",
+            [hash, user.UID]
+        );
+
+    console.log("Password update complete.");
+})
 
 module.exports = router;
