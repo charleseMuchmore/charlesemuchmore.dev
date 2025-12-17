@@ -239,7 +239,7 @@ I need to develop tests for this site. This will require looking into the curren
 * While developing...
 * ensure both .env files have the local or dev variables uncommented, not the prod ones
 * Run the frontend by typing npm run start from the frontend folder
-* Run the backend by typing npm run start in the backend folder (nodemon should say its running on whatever port is in the .env)
+* Run the backend by typing npm run dev in the backend folder (nodemon should say its running on whatever port is in the .env)
 * Check if frontend can reach backend by typing curl.exe http://localhost:3001/auth
     * If it returns a status of ok, it is connecting
     * you can also check any other route by replacing "auth" with the desired route
@@ -251,6 +251,8 @@ There are generally three types of things the backend can do and provide to the 
 1. Routes - HTTP input/output
 2. Services - Business logic
 3. External Systems - Email, DB, other people's APIs
+
+Note: there is also middleware, used ONLY by those three things within the backend.
 
 ### Routes
 In the /routes folder, there is each general route group. I can define all of my request types, including POST, GET, DELETE, etc.
@@ -267,9 +269,34 @@ We use curl.exe instead of just curl because just curl is an alias for a differe
 
 Obviously, if you are trying to test this in production, you would change the url but the path would be the same. If you change the port for this project, we have to change the port in the curl request, etc.
 
+#### Test GET to /contact route in development
+curl.exe http://localhost:3001/contact
+
+#### Test POST to /contact route in development
+Invoke-RestMethod -Uri http://localhost:3001/contact -Method POST -ContentType "application/json" -Body '{"name":"suzie","email":"suzie@mail.com","message":"hello"}'
+
+#### Test POST to /auth/login route in development
+Invoke-RestMethod -Uri http://localhost:3001/auth/login -Method POST -ContentType "application/json" -Body '{"username":"test","password":"testpassword"}'
+
+Note: must add a remote database connection in hostinger. use this command to find public ip of your dev machine:
+Invoke-RestMethod "https://ifconfig.me"
+
 ### Services
 Services are ways we implement business logic. Routes use our serviced via functions, which are defined and provided to the routes by the services.
 
 For example, there is a route POST /contact, intended to use when someone is trying to contact me via the form on my website. That route connects the requester with our mailer service via something like "sendContactEmail()", which is a function provided by our mailer service. That function itself uses the nodemailer module internally.
 
 ## Frontend:
+Protect routes with the ProtectedRoutes component
+
+
+## New TODO:
+
+### Frontend
+* 
+
+### Backend
+* Add rate limiting to /contact so my server or email or whatever cannot be ddosed
+* Add CAPTCHA so robots cannot try to ddos me
+* Add basic logging for troubleshooting
+
