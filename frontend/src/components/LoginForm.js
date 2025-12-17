@@ -4,9 +4,6 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const LoginForm = () => {
-  const protocol = "http";
-  const domain = "localhost";
-  const port = "3001";
 
   const [formData, setFormData] = useState({
     username: '',
@@ -24,9 +21,9 @@ const LoginForm = () => {
   //authenticate user
 
   const authenticate = async (data) => {
-    let url = `${protocol}://${domain}:${port}`;
+    let url = process.env.REACT_APP_API_URL;
     try {
-        let response = await axios.post(`${url}/authenticate-user`, data, {
+        let response = await axios.post(`${url}/auth`, data, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

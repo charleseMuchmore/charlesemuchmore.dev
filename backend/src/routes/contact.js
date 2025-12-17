@@ -1,3 +1,4 @@
+const mailer = require('../services/mailer.js');
 const express = require("express");
 const router = express.Router();
 
@@ -8,12 +9,13 @@ router.get("/", (req, res) => {
 router.post("/", async (req, res) => {
     const { name, email, message } = req.body;
 
+    console.log(req.body);
     if (!name || !email || !message) {
         return res.status(400).json({ error: "Missing fields"});
     };
 
     try {
-        await sendContactEmail({ name, email, message });
+        await mailer.sendContactEmail({ name, email, message });
         res.json({ success: true });
     } catch (err) {
         console.error(err);

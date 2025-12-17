@@ -2,21 +2,21 @@ const nodemailer = require("nodemailer");
 const config = require("../config");
 
 const transporter = nodemailer.createTransport({
-    host: "",
-    port: "",
-    secure: false,
+    host: config.smtp_host,
+    port: config.smtp_port,
     auth: {
-        user: "",
-        pass: ""
+        type: "login",
+        user: config.smtp_user,
+        pass: config.smtp_pass
     },
 });
 
 async function sendContactEmail({ name, email, message }) {
     return transporter.sendMail({
         from: `"Contact Form" <${config.smtp_user}>`,
-        to: config.contact_to,
+        to: config.smtp_user,
         replyTo: email,
-        subject: `New message from insert name here`,
+        subject: `New message from ${name}`,
         text: message
     })
 }
