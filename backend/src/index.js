@@ -16,7 +16,9 @@ app.use(express.json());
 // Route Groups
 app.use("/auth", require("./routes/auth"));
 app.use("/contact", require("./routes/contact"));
+app.use("/admin", require("./routes/admin"));
 app.use("/auth/login", require("./routes/auth"));
+app.use("/admin/dashboard", require("./routes/admin"));
 
 app.get("/health", (req, res) => {
     res.json({ status: "OK" });

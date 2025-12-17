@@ -14,8 +14,11 @@ import Learning from './pages/Learning';
 import History from './pages/History';
 import Interests from './pages/Interests';
 import Contact from './pages/Contact';
+import AdminDashboard from './pages/AdminDashboard';
 
 import ProjectsContext from './context/projects';
+// import { AuthProvider } from './context/authcontext';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
     const [message] = useState('');
@@ -36,6 +39,14 @@ function App() {
           <Route path="/History" element={<History />} />
           <Route path="/Interests" element={<Interests />} />
           <Route path="/Contact" element={<Contact />} />
+          <Route 
+            path="/Admin"
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<NoPage />} />
         </Route>             
       </Routes>

@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const pool = require("../db");
+const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 
 // Ensuring all passwords in DB are hashed with bcrypt... this also is some good code to reuse for password reset functionality
@@ -47,9 +49,17 @@ router.post("/login", async (req, res) => {
 
         // If you use bcrypt:
         const match = await bcrypt.compare(password, user.Password);
-        if (!match) return res.status(401).json({ error: "Invalid credentials" });
+        if (!match) {
+            return res.status(401).json({ error: "Invalid credentials" });
+        } else {
+            const token = jwt.sign(
+                { id: user.UID, username: user.Username },
+                config.jwt_secret,
+                { expiresIn: "1h" }
+            );
 
-        res.json({ success: true, user: { id: user.UID, username: user.Username } });
+            res.json({ success: true, token: token });
+        }
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Server error" });

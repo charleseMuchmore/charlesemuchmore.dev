@@ -1,9 +1,13 @@
 import "./LoginForm.css";
 
 import { useState } from 'react';
+import { useAuth } from '../context/authcontext';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const LoginForm = () => {
+  const { login } = useAuth(); 
+  const navigate = useNavigate(); // so we can navigate programmatically
 
   const [formData, setFormData] = useState({
     username: '',
@@ -19,16 +23,18 @@ const LoginForm = () => {
   };
 
   //authenticate user
-
   const authenticate = async (data) => {
     let url = process.env.REACT_APP_API_URL;
     try {
-        let response = await axios.post(`${url}/auth`, data, {
+        let response = await axios.post(`${url}/auth/login`, data, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         }
       });
+
+      login(response.data.token); //stores token in context + localstorage
+      navigate("/admin"); // routes to admin dashboard
 
       setResponseMessage({type: true, text: 'User Authenticated!'});
       console.log('Server response:', response.data);
