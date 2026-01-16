@@ -300,3 +300,10 @@ Protect routes with the ProtectedRoutes component
 * Add CAPTCHA so robots cannot try to ddos me
 * Add basic logging for troubleshooting
 
+
+
+
+# VPS Notes
+
+5.0 is currently running on the vps, email and admin login work appropriately
+
