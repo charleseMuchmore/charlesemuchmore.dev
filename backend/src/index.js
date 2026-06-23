@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(cors({
     origin: [
         "http://localhost:3002",
-        "https://charlesemuchmore.dev"
+        "https://charlese.website"
     ]
 }));
 app.use(express.json());

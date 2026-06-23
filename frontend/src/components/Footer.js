@@ -44,7 +44,7 @@ const Footer = () => {
                     </a>
                 </div>
                 <div className="col">
-                    <a href="https://charlesemuchmore.dev/Contact">
+                    <a href="https://charlese.website/Contact">
                     <img alt="Email" src={EmailImage} className="socialLinkIcon"></img>
                     </a>
                 </div>
