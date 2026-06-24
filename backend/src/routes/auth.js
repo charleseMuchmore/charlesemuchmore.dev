@@ -33,16 +33,16 @@ router.post("/login", async (req, res) => {
         return res.status(400).json({ error: "Missing fields" });
 
     try {
+        console.log("entered try block");
         const [rows] = await pool.query(
             "SELECT * FROM Users WHERE Username =?",
             [username]
         );
-
+        console.log("ROWS FROM DB:", rows);
         if (rows.length === 0)
             return res.status(401).json({ error: "Invalid credentials" });
 
         const user = rows[0];
-
         // If you store plain passwords (not recommended):
         // if (user.password !== password)
         //     return res.status(401).json({ error: "Invalid credentials" });
@@ -50,7 +50,7 @@ router.post("/login", async (req, res) => {
         // If you use bcrypt:
         const match = await bcrypt.compare(password, user.Password);
         if (!match) {
-            return res.status(401).json({ error: "Invalid credentials" });
+            return res.status(401).json({ error: "Bad Password" });
         } else {
             const token = jwt.sign(
                 { id: user.UID, username: user.Username },
@@ -67,8 +67,9 @@ router.post("/login", async (req, res) => {
 });
 
 //untested - need to add error handling
-router.post("reset-password", async (req, res) => {
-    const user = await pool.query("SELECT UID, Password FROM Users WHERE Username = ?" [req.username]);
+router.post("/reset-password", async (req, res) => {
+    const { username, password } = req.body;
+    const user = await pool.query("SELECT UID, Password FROM Users WHERE Username = ?", [username]);
 
     const hash = await bcrypt.hash(req.password, 10);
         await pool.query(
