@@ -6,7 +6,6 @@ function Projects() {
     const { projects } = useContext(ProjectsContext);
 
     const renderedProjects = projects.map((project) => {
-        console.log("rendered Projects was entered!");
         project.link.githubText = "View on Github";
         if (project.link.online !== "#")
         {

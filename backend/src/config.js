@@ -1,7 +1,6 @@
-const dotenv = require('dotenv');
-dotenv.config();
+require('dotenv').config();
 module.exports = {
-    app_port: process.env.PORT,
+    app_port: process.env.APP_PORT || 3001,
     app_protocol: process.env.PROTOCOL,
     app_host: process.env.HOST,
     smtp_host: process.env.SMTP_HOST,
