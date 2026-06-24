@@ -26,18 +26,12 @@ const LoginForm = () => {
   const authenticate = async (data) => {
     let url = process.env.REACT_APP_API_URL;
     try {
-        let response = await axios.post(`${url}/auth/login`, data, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+        let response = await axios.post(`${url}/auth/login`, data);
 
       login(response.data.token); //stores token in context + localstorage
       navigate("/admin"); // routes to admin dashboard
 
       setResponseMessage({type: true, text: 'User Authenticated!'});
-      console.log('Server response:', response.data);
     } catch (error) {
         setResponseMessage({type: false, text: 'Error authenticating user. Please try again.'});
         console.error('Error:', error.response?.data?.message || error.message);
@@ -48,8 +42,8 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let data = JSON.stringify(formData);
-    await authenticate(data);
+    //let data = JSON.stringify(formData);
+    await authenticate(formData);
   };
 
   return (
