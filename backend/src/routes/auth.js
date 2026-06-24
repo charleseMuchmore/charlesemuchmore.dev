@@ -5,7 +5,6 @@ const pool = require("../db");
 const jwt = require("jsonwebtoken");
 const config = require("../config");
 
-
 // Ensuring all passwords in DB are hashed with bcrypt... this also is some good code to reuse for password reset functionality
 // (async () => {
 //     const [users] = await pool.query("SELECT UID, Password FROM Users");
@@ -27,30 +26,35 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-    const { username, password } = req.body;
+        console.log("BODY RECEIVED:", req.body);
+        console.log("HEADERS:", req.headers);
+        const { username, password } = req.body;
 
-    if (!username || !password)
+    if (!username || !password) {
         return res.status(400).json({ error: "Missing fields" });
+    }
 
     try {
-        console.log("entered try block");
         const [rows] = await pool.query(
             "SELECT * FROM Users WHERE Username =?",
             [username]
         );
         console.log("ROWS FROM DB:", rows);
+
         if (rows.length === 0)
             return res.status(401).json({ error: "Invalid credentials" });
 
         const user = rows[0];
+        console.log(user);      
         // If you store plain passwords (not recommended):
         // if (user.password !== password)
         //     return res.status(401).json({ error: "Invalid credentials" });
 
         // If you use bcrypt:
         const match = await bcrypt.compare(password, user.Password);
+        console.log(match);
         if (!match) {
-            return res.status(401).json({ error: "Bad Password" });
+            return res.status(401).json({ error: "Invalid credentials" });
         } else {
             const token = jwt.sign(
                 { id: user.UID, username: user.Username },
@@ -68,8 +72,7 @@ router.post("/login", async (req, res) => {
 
 //untested - need to add error handling
 router.post("/reset-password", async (req, res) => {
-    const { username, password } = req.body;
-    const user = await pool.query("SELECT UID, Password FROM Users WHERE Username = ?", [username]);
+    const user = await pool.query("SELECT UID, Password FROM Users WHERE Username = ?", [req.username]);
 
     const hash = await bcrypt.hash(req.password, 10);
         await pool.query(

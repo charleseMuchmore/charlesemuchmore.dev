@@ -1,11 +1,10 @@
 const mysql = require("mysql2/promise");
-const config = require("./config");
-
+const { db_host, db_user, db_pass, db_name } = require("./config");
 const pool = mysql.createPool({
-  host: config.db_host,
-  user: config.db_user,
-  password: config.db_pass,
-  database: config.db_name,
+  host: db_host,
+  user: db_user,
+  password: db_pass,
+  database: db_name,
   waitForConnections: true,
   connectionLimit: 10,
 });
