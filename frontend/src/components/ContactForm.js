@@ -21,13 +21,10 @@ const ContactForm = () => {
   // Send emails
   const mail = async (data) => {
     let url = process.env.REACT_APP_API_URL;
-    console.log(url);
-    console.log(data);
     try {
       let response = await axios.post(`${url}/contact`, data);
 
       setResponseMessage({type: true, text: 'Email sent successfully!'});
-      console.log('Server response:', response.data);
     } catch (error) {
       setResponseMessage({type: false, text: 'Error sending email. Please try again.'});
       console.error('Error:', error.response?.data?.message || error.message);
