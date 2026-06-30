@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import JobsContext from "../context/jobs";
+import JobsContext from "../context/experiences";
 import ProjectsContext from "../context/projects";
 import JournalContext from "../context/journal";
 import JoyContext from "../context/joy";

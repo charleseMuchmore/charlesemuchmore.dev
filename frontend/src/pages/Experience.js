@@ -1,13 +1,13 @@
 import React, { useEffect, useContext } from "react";
 import EmploymentTimeline from "../components/EmploymentTimeline";
-import JobsContext from "../context/jobs";
+import ExperiencesContext from "../context/experiences";
 
 function Experience() {
-    const { jobs, loading, error, fetchJobs } = useContext(JobsContext);
+    const { experiences, loading, error, fetchExperiences } = useContext(ExperiencesContext);
 
     useEffect(() => {
-        fetchJobs();
-    }, [fetchJobs]);
+        fetchExperiences();
+    }, [fetchExperiences]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -23,14 +23,14 @@ function Experience() {
         window.addEventListener("scroll", handleScroll);
         handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [jobs]);
+    }, [experiences]);
 
     return (
         <div className="container my-5">
             <h1 className="text-center mb-4">My Work Experience</h1>
             {loading && <p>Loading experience...</p>}
             {error && <p className="text-danger">{error}</p>}
-            {!loading && !error && <EmploymentTimeline jobs={jobs} />}
+            {!loading && !error && <EmploymentTimeline experiences={experiences} />}
         </div>
     );
 }

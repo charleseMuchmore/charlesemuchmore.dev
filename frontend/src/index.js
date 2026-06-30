@@ -10,12 +10,9 @@ import ReactDOM from 'react-dom/client';
 import {BrowserRouter} from 'react-router-dom';
 import App from './App';
 import { PProvider } from './context/projects.js';
-import { JobsProvider } from './context/jobs.js';
-<<<<<<< HEAD
+import { ExperiencesProvider } from './context/experiences.js';
 import { JoyProvider } from './context/joy.js';
 import { JournalProvider } from './context/journal.js';
-=======
->>>>>>> 2458c0f97b563011d96edc6ff1774ccf536af4bd
 import { AuthProvider } from './context/authcontext.js';
 import './index.css';
 
@@ -26,8 +23,7 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <PProvider>
-        <JobsProvider>
-<<<<<<< HEAD
+        <ExperiencesProvider>
           <JoyProvider>
             <JournalProvider>
               <BrowserRouter>
@@ -35,12 +31,7 @@ root.render(
               </BrowserRouter>
             </JournalProvider>
           </JoyProvider>
-=======
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
->>>>>>> 2458c0f97b563011d96edc6ff1774ccf536af4bd
-        </JobsProvider>
+        </ExperiencesProvider>
       </PProvider>
     </AuthProvider>
   </React.StrictMode>
