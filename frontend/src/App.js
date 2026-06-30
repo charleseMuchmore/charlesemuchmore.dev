@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {Routes, Route} from 'react-router-dom'; //add Navigate later
+import {Routes, Route, Navigate} from 'react-router-dom';
 import React, { useEffect, useState, useContext } from 'react';
 
 //pages
@@ -11,7 +11,9 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Projects from './pages/Projects';
 import Learning from './pages/Learning';
-import History from './pages/History';
+import Experience from './pages/Experience';
+import Journal from './pages/Journal';
+import Joy from './pages/Joy';
 import Interests from './pages/Interests';
 import Contact from './pages/Contact';
 import AdminDashboard from './pages/AdminDashboard';
@@ -36,7 +38,10 @@ function App() {
           <Route path="/Login" element={<Login />} />
           <Route path="/Projects" element={<Projects />} />
           <Route path="/Learning" element={<Learning />} />
-          <Route path="/History" element={<History />} />
+          <Route path="/Experience" element={<Experience />} />
+          <Route path="/History" element={<Navigate to="/Experience" replace />} />
+          <Route path="/Journal" element={<Journal />} />
+          <Route path="/Joy" element={<Joy />} />
           <Route path="/Interests" element={<Interests />} />
           <Route path="/Contact" element={<Contact />} />
           <Route 
