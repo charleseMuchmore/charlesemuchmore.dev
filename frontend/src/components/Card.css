@@ -1,8 +1,50 @@
 .card {
     transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    object-fit: cover;
+    height: 200px;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-title {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.card-text {
+    flex: 1;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.card-tech {
+    margin: 8px 0;
+    color: #666;
+}
+
+.card-links {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.card-links .btn-sm {
+    font-size: 12px;
+    padding: 5px 10px;
 }

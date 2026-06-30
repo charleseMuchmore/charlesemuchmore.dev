@@ -18,6 +18,49 @@
   transition: all 0.8s ease-in-out;
 }
 
+.timeline-card h2 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 22px;
+}
+
+.timeline-card h3 {
+  margin: 0 0 4px 0;
+  color: #666;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.timeline-card .location {
+  margin: 4px 0;
+  color: #888;
+  font-size: 14px;
+}
+
+.timeline-card .duration {
+  margin: 8px 0;
+  color: #555;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.timeline-card .current-badge {
+  display: inline-block;
+  background-color: #17a2b8;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.timeline-card p {
+  margin: 12px 0;
+  color: #555;
+  line-height: 1.6;
+}
+
 .timeline-card.fly-in-left {
   transform: translateX(-100%);
 }

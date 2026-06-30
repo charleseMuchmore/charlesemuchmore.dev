@@ -29,12 +29,20 @@ function JobsProvider({ children }) {
 
     const deleteJobById = async (id) => {
         await axios.delete(`${apiUrl}/jobs/${id}`, { headers: authHeaders });
+<<<<<<< HEAD
         setJobs((prev) => prev.filter((job) => job.JID !== id));
+=======
+        setJobs((prev) => prev.filter((job) => job.id !== id));
+>>>>>>> 2458c0f97b563011d96edc6ff1774ccf536af4bd
     };
 
     const editJobById = async (id, jobProps) => {
         const response = await axios.put(`${apiUrl}/jobs/${id}`, jobProps, { headers: authHeaders });
+<<<<<<< HEAD
         setJobs((prev) => prev.map((job) => job.JID === id ? response.data : job));
+=======
+        setJobs((prev) => prev.map((job) => job.id === id ? response.data : job));
+>>>>>>> 2458c0f97b563011d96edc6ff1774ccf536af4bd
     };
 
     const createJob = async (jobProps) => {

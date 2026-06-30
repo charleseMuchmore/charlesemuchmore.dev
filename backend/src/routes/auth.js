@@ -26,8 +26,6 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-        console.log("BODY RECEIVED:", req.body);
-        console.log("HEADERS:", req.headers);
         const { username, password } = req.body;
 
     if (!username || !password) {
@@ -39,20 +37,19 @@ router.post("/login", async (req, res) => {
             "SELECT * FROM Users WHERE Username =?",
             [username]
         );
-        console.log("ROWS FROM DB:", rows);
 
         if (rows.length === 0)
             return res.status(401).json({ error: "Invalid credentials" });
 
         const user = rows[0];
-        console.log(user);      
+
         // If you store plain passwords (not recommended):
         // if (user.password !== password)
         //     return res.status(401).json({ error: "Invalid credentials" });
 
         // If you use bcrypt:
         const match = await bcrypt.compare(password, user.Password);
-        console.log(match);
+
         if (!match) {
             return res.status(401).json({ error: "Invalid credentials" });
         } else {
