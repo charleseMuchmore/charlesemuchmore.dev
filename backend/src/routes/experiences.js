@@ -35,7 +35,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/", authMiddleware, async (req, res) => {
     const { title, company, location, startDate, endDate, currentJob, description } = req.body;
-    if (!title || !company || !location || !startDate || !endDate || !currentJob || !description) {
+    if (!title || !company || !location || !startDate || !description) {
         return res.status(400).json({ error: "Missing experience fields" });
     }
 

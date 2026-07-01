@@ -16,12 +16,15 @@ app.use(cors({
 app.use(express.json());
 
 // Route Groups
+app.use("/admin", require("./routes/admin"));
 app.use("/auth", require("./routes/auth"));
 app.use("/contact", require("./routes/contact"));
-app.use("/admin", require("./routes/admin"));
-app.use("/users", require("./routes/users"));
-app.use("/jobs", require("./routes/jobs"));
+app.use("/entries", require("./routes/entries"));
+app.use("/experiences", require("./routes/experiences"));
+app.use("/joys", require("./routes/joys"));
 app.use("/projects", require("./routes/projects"));
+app.use("/tags", require("./routes/tags"));
+app.use("/users", require("./routes/users"));
 app.get("/health", (req, res) => {
     res.json({ status: "OK" });
 });
