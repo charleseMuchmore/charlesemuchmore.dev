@@ -3,7 +3,11 @@ const router = express.Router();
 const pool = require("../db");
 const authMiddleware = require("../middleware/authMiddleware");
 
-//tested - OK
+const express = require("express");
+const router = express.Router();
+const pool = require("../db");
+const authMiddleware = require("../middleware/authMiddleware");
+
 router.get("/", async (req, res) => {
     try {
         const [rows] = await pool.query(
@@ -93,5 +97,4 @@ router.delete("/:id", authMiddleware, async (req, res) => {
         res.status(500).json({ error: "Failed to delete tag" });
     }
 });
-
 module.exports = router;
