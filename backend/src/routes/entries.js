@@ -6,7 +6,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 router.get("/", async (req, res) => {
     try {
         const [rows] = await pool.query(
-            "SELECT EID, Title, Title, Description, EntryDate, Body, RelatedLinks, CreatedAt FROM Projects ORDER BY EID DESC"
+            "SELECT EID, Title, Description, Body, RelatedLinks, CreatedAt FROM Entries ORDER BY EID DESC"
         );
         res.json(rows);
     } catch (err) {
@@ -21,7 +21,7 @@ router.get("/:id", async (req, res) => {
 
     try {
         const [rows] = await pool.query(
-            "SELECT EID, Title, Description, EntryDate, Body, RelatedLinks, CreatedAt FROM Projects WHERE EID = ?",
+            "SELECT EID, Title, Description, Body, RelatedLinks, CreatedAt FROM Entries WHERE EID = ?",
             [id]
         );
         if (rows.length === 0) return res.status(404).json({ error: "Entry not found" });
@@ -33,18 +33,18 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", authMiddleware, async (req, res) => {   
- const { title, description, entryDate, body, relatedLinks } = req.body;
+ const { title, description, body, relatedLinks } = req.body;
     if (!title || !description) {
         return res.status(400).json({ error: "Missing entry fields" });
     }
 
     try {
         const [result] = await pool.query(
-            "INSERT INTO Projects (Title, Description, EntryDate, Body, RelatedLinks) VALUES (?, ?, ?, ?, ?)",
-            [title, description, entryDate, body, relatedLinks]
+            "INSERT INTO Entries (Title, Description, Body, RelatedLinks) VALUES (?, ?, ?, ?, ?)",
+            [title, description, body, relatedLinks]
         );
         const [rows] = await pool.query(
-            "SELECT EID, Title, Description, EntryDate, Body, RelatedLinks, CreatedAt FROM Projects WHERE EID = ?",
+            "SELECT EID, Title, Description, Body, RelatedLinks, CreatedAt FROM Entries WHERE EID = ?",
             [result.insertId]
         );
         res.status(201).json(rows[0]);
@@ -56,7 +56,7 @@ router.post("/", authMiddleware, async (req, res) => {
 
 router.put("/:id", authMiddleware, async (req, res) => {
     const id = Number(req.params.id);
-    const { title, description, entryDate, body, relatedLinks } = req.body;
+    const { title, description, body, relatedLinks } = req.body;
     if (!id) return res.status(400).json({ error: "Invalid entry id" });
     if (!title || !description) {
         return res.status(400).json({ error: "Missing entry title or description" });
@@ -64,12 +64,12 @@ router.put("/:id", authMiddleware, async (req, res) => {
 
     try {
         const [result] = await pool.query(
-            "UPDATE Projects SET Title = ?, Description = ?, EntryDate = ?, Body = ?, RelatedLinks = ? WHERE EID = ?",
-            [title, description, entryDate, body, relatedLinks, id]
+            "UPDATE Entries SET Title = ?, Description = ?, Body = ?, RelatedLinks = ? WHERE EID = ?",
+            [title, description, body, relatedLinks, id]
         );
         if (result.affectedRows === 0) return res.status(404).json({ error: "Entry not found" });
         const [rows] = await pool.query(
-            "SELECT EID, Title, Description, EntryDate, Body, RelatedLinks, CreatedAt FROM Projects WHERE EID = ?",
+            "SELECT EID, Title, Description, Body, RelatedLinks, CreatedAt FROM Entries WHERE EID = ?",
             [id]
         );
         res.json(rows[0]);
