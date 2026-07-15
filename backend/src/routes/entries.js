@@ -40,7 +40,7 @@ router.post("/", authMiddleware, async (req, res) => {
 
     try {
         const [result] = await pool.query(
-            "INSERT INTO Entries (Title, Description, Body, RelatedLinks) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO Entries (Title, Description, Body, RelatedLinks) VALUES (?, ?, ?, ?)",
             [title, description, body, relatedLinks]
         );
         const [rows] = await pool.query(

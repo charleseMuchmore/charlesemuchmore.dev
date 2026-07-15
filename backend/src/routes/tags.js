@@ -3,11 +3,6 @@ const router = express.Router();
 const pool = require("../db");
 const authMiddleware = require("../middleware/authMiddleware");
 
-const express = require("express");
-const router = express.Router();
-const pool = require("../db");
-const authMiddleware = require("../middleware/authMiddleware");
-
 router.get("/", async (req, res) => {
     try {
         const [rows] = await pool.query(
