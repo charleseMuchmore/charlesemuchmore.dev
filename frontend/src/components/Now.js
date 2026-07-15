@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import JobsContext from "../context/experiences";
+import ExperiencesContext from "../context/experiences";
 import ProjectsContext from "../context/projects";
 import JournalContext from "../context/journal";
 import JoyContext from "../context/joy";
@@ -8,22 +8,22 @@ import "./Now.css";
 
 const Now = () => {
     const navigate = useNavigate();
-    const { jobs, fetchJobs } = useContext(JobsContext);
+    const { experiences, fetchExperiences } = useContext(ExperiencesContext);
     const { projects, fetchProjects } = useContext(ProjectsContext);
     const { entries, fetchEntries } = useContext(JournalContext);
     const { joys, fetchJoys } = useContext(JoyContext);
 
     useEffect(() => {
-        fetchJobs();
+        fetchExperiences();
         fetchProjects();
         fetchEntries();
         fetchJoys();
-    }, [fetchJobs, fetchProjects, fetchEntries, fetchJoys]);
+    }, [fetchExperiences, fetchProjects, fetchEntries, fetchJoys]);
 
-    const currentJobs = jobs.filter(job => job.CurrentJob);
-    const recentProjects = projects.slice(0, 3);
-    const recentEntries = entries.slice(0, 2);
-    const recentJoys = joys.slice(0, 3);
+    const currentJobs = (Array.isArray(experiences) ? experiences : []).filter(job => job.CurrentJob);
+    const recentProjects = (Array.isArray(projects) ? projects : []).slice(0, 3);
+    const recentEntries = (Array.isArray(entries) ? entries : []).slice(0, 2);
+    const recentJoys = (Array.isArray(joys) ? joys : []).slice(0, 3);
 
     const formatDate = (dateString) => {
         if (!dateString) return '';
@@ -44,7 +44,7 @@ const Now = () => {
                 {currentJobs.length > 0 ? (
                     <div className="now-items">
                         {currentJobs.map(job => (
-                            <div key={job.JID} className="now-item">
+                            <div key={job.XID || job.JID} className="now-item">
                                 <h4>{job.Title}</h4>
                                 <p className="now-subtitle">{job.Company}</p>
                             </div>

@@ -57,30 +57,3 @@ function ExperiencesProvider({ children }) {
 
 export { ExperiencesProvider };
 export default ExperiencesContext;
-
-        setExperiences((prev) => prev.filter((experience) => experience.XID !== id));
-
-    const editExperienceById = async (id, experienceProps) => {
-        const response = await axios.put(`${apiUrl}/experiences/${id}`, experienceProps, { headers: authHeaders });
-        setExperiences((prev) => prev.map((experience) => experience.XID === id ? response.data : experience));
-    };
-
-    const createExperience = async (experienceProps) => {
-        const response = await axios.post(`${apiUrl}/experiences`, experienceProps, { headers: authHeaders });
-        setExperiences((prev) => [response.data, ...prev]);
-    };
-
-    const valueToShare = {
-        experiences,
-        loading,
-        error,
-        fetchExperiences,
-        deleteExperienceById,
-        editExperienceById,
-        createExperience,
-    };
-
-    return <ExperiencesContext.Provider value={valueToShare}>{children}</ExperiencesContext.Provider>;
-
-export { ExperiencesProvider };
-export default ExperiencesContext;
