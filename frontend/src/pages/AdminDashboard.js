@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import AdminUsersTab from '../components/AdminUsersTab';
 import AdminProjectsTab from '../components/AdminProjectsTab';
-import AdminJobsTab from '../components/AdminJobsTab';
 import AdminExperiencesTab from '../components/AdminExperiencesTab';
 import AdminJoysTab from '../components/AdminJoysTab';
 import AdminEntriesTab from '../components/AdminEntriesTab';
@@ -41,12 +40,6 @@ function AdminDashboard() {
                     Projects
                 </button>
                 <button 
-                    className={`tab-btn ${activeTab === 'jobs' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('jobs')}
-                >
-                    Jobs
-                </button>
-                <button 
                     className={`tab-btn ${activeTab === 'experiences' ? 'active' : ''}`}
                     onClick={() => setActiveTab('experiences')}
                 >
@@ -75,7 +68,6 @@ function AdminDashboard() {
             <div className="admin-content">
                 {activeTab === 'users' && <AdminUsersTab />}
                 {activeTab === 'projects' && <AdminProjectsTab />}
-                {activeTab === 'jobs' && <AdminJobsTab />}
                 {activeTab === 'experiences' && <AdminExperiencesTab />}
                 {activeTab === 'joys' && <AdminJoysTab />}
                 {activeTab === 'entries' && <AdminEntriesTab />}

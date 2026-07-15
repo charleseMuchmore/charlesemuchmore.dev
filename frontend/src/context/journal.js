@@ -13,11 +13,20 @@ function JournalProvider({ children }) {
 
     const authHeaders = token ? { Authorization: `Bearer ${token}` } : {};
 
+    const normalizeEntry = useCallback((entry) => ({
+        ...entry,
+        EntryID: entry.EntryID ?? entry.EID,
+        Description: entry.Description ?? entry.Content ?? entry.Body ?? '',
+        Body: entry.Body ?? entry.Content ?? entry.Description ?? '',
+        Content: entry.Content ?? entry.Body ?? entry.Description ?? '',
+        CreatedAt: entry.CreatedAt ?? entry.Date ?? null,
+    }), []);
+
     const fetchEntries = useCallback(async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`${apiUrl}/journal`);
-            setEntries(response.data);
+            const response = await axios.get(`${apiUrl}/entries`);
+            setEntries((response.data || []).map(normalizeEntry));
             setError(null);
         } catch (err) {
             console.error('Failed to fetch journal entries', err);
@@ -25,21 +34,22 @@ function JournalProvider({ children }) {
         } finally {
             setLoading(false);
         }
-    }, [apiUrl]);
+    }, [apiUrl, normalizeEntry]);
 
     const deleteEntryById = async (id) => {
-        await axios.delete(`${apiUrl}/journal/${id}`, { headers: authHeaders });
-        setEntries((prev) => prev.filter((entry) => entry.EntryID !== id));
+        await axios.delete(`${apiUrl}/entries/${id}`, { headers: authHeaders });
+        setEntries((prev) => prev.filter((entry) => (entry.EntryID ?? entry.EID) !== id));
     };
 
     const editEntryById = async (id, entryData) => {
-        const response = await axios.put(`${apiUrl}/journal/${id}`, entryData, { headers: authHeaders });
-        setEntries((prev) => prev.map((entry) => entry.EntryID === id ? response.data : entry));
+        const response = await axios.put(`${apiUrl}/entries/${id}`, entryData, { headers: authHeaders });
+        const updatedEntry = normalizeEntry(response.data);
+        setEntries((prev) => prev.map((entry) => (entry.EntryID ?? entry.EID) === id ? updatedEntry : entry));
     };
 
     const createEntry = async (entryData) => {
-        const response = await axios.post(`${apiUrl}/journal`, entryData, { headers: authHeaders });
-        setEntries((prev) => [response.data, ...prev]);
+        const response = await axios.post(`${apiUrl}/entries`, entryData, { headers: authHeaders });
+        setEntries((prev) => [normalizeEntry(response.data), ...prev]);
     };
 
     const valueToShare = {

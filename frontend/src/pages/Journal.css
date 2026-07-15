@@ -56,6 +56,20 @@
     margin-bottom: 0;
 }
 
+.entry-toggle {
+    margin-top: 10px;
+    border: none;
+    background: none;
+    color: #007bff;
+    padding: 0;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.entry-toggle:hover {
+    text-decoration: underline;
+}
+
 .entry-tags {
     display: flex;
     flex-wrap: wrap;

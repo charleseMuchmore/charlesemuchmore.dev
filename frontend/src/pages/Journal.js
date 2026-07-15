@@ -1,9 +1,10 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import JournalContext from "../context/journal";
 import "./Journal.css";
 
 function Journal() {
     const { entries, loading, error, fetchEntries } = useContext(JournalContext);
+    const [expandedEntryId, setExpandedEntryId] = useState(null);
 
     useEffect(() => {
         fetchEntries();
@@ -18,6 +19,10 @@ function Journal() {
         });
     };
 
+    const toggleEntry = (entryId) => {
+        setExpandedEntryId((currentId) => (currentId === entryId ? null : entryId));
+    };
+
     return (
         <div className="container my-5">
             <h1 className="text-center mb-4">Journal</h1>
@@ -29,26 +34,42 @@ function Journal() {
             {!loading && !error && (
                 <div className="journal-entries">
                     {entries.length > 0 ? (
-                        entries.map((entry) => (
-                            <article key={entry.EntryID} className="journal-entry">
-                                <div className="entry-header">
-                                    <h2 className="entry-title">{entry.Title}</h2>
-                                    <time className="entry-date">{formatDate(entry.CreatedAt || entry.Date)}</time>
-                                </div>
-                                <div className="entry-content">
-                                    <p>{entry.Content || entry.Body}</p>
-                                </div>
-                                {entry.Tags && (
-                                    <div className="entry-tags">
-                                        {entry.Tags.split(',').map((tag, idx) => (
-                                            <span key={idx} className="tag">
-                                                #{tag.trim()}
-                                            </span>
-                                        ))}
+                        entries.map((entry) => {
+                            const entryId = entry.EntryID ?? entry.EID;
+                            const isExpanded = expandedEntryId === entryId;
+                            const previewText = entry.Description || entry.Body || entry.Content || '';
+                            const fullBody = entry.Body || entry.Content || '';
+
+                            return (
+                                <article key={entryId} className="journal-entry">
+                                    <div className="entry-header">
+                                        <h2 className="entry-title">{entry.Title}</h2>
+                                        <time className="entry-date">{formatDate(entry.CreatedAt || entry.Date)}</time>
                                     </div>
-                                )}
-                            </article>
-                        ))
+                                    <div className="entry-content">
+                                        <p>{isExpanded ? fullBody : previewText}</p>
+                                        {fullBody && fullBody !== previewText && (
+                                            <button
+                                                type="button"
+                                                className="entry-toggle"
+                                                onClick={() => toggleEntry(entryId)}
+                                            >
+                                                {isExpanded ? 'Hide full entry' : 'Read more'}
+                                            </button>
+                                        )}
+                                    </div>
+                                    {entry.Tags && (
+                                        <div className="entry-tags">
+                                            {entry.Tags.split(',').map((tag, idx) => (
+                                                <span key={idx} className="tag">
+                                                    #{tag.trim()}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </article>
+                            );
+                        })
                     ) : (
                         <p className="text-center text-muted">No journal entries yet. Start writing!</p>
                     )}
