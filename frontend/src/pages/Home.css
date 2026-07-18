@@ -39,7 +39,7 @@
     width: 28rem;
     height: 28rem;
     border-radius: 50%;
-    object-fit: cover;
+    /* object-fit: cover; */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
 }
