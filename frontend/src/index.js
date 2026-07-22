@@ -10,7 +10,9 @@ import ReactDOM from 'react-dom/client';
 import {BrowserRouter} from 'react-router-dom';
 import App from './App';
 import { PProvider } from './context/projects.js';
-import { JobsProvider } from './context/jobs.js';
+import { ExperiencesProvider } from './context/experiences.js';
+import { JoyProvider } from './context/joy.js';
+import { JournalProvider } from './context/journal.js';
 import { AuthProvider } from './context/authcontext.js';
 import './index.css';
 
@@ -21,11 +23,15 @@ root.render(
   <React.StrictMode>
     <AuthProvider>
       <PProvider>
-        <JobsProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </JobsProvider>
+        <ExperiencesProvider>
+          <JoyProvider>
+            <JournalProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </JournalProvider>
+          </JoyProvider>
+        </ExperiencesProvider>
       </PProvider>
     </AuthProvider>
   </React.StrictMode>

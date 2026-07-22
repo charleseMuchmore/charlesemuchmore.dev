@@ -1,7 +1,7 @@
 import React from "react";
 import "./EmploymentTimeline.css";
 
-const EmploymentTimeline = ({ jobs = [] }) => {
+const EmploymentTimeline = ({ experiences = [] }) => {
   const formatDate = (dateString) => {
     if (!dateString) return '';
     return new Date(dateString).toLocaleDateString('en-US', { 
@@ -12,27 +12,27 @@ const EmploymentTimeline = ({ jobs = [] }) => {
 
   return (
     <div className="timeline-container">
-      {jobs.length === 0 ? (
+      {experiences.length === 0 ? (
         <p>No experience entries found.</p>
       ) : (
-        jobs.map((job, index) => {
-          const startDate = formatDate(job.StartDate);
-          const endDate = job.CurrentJob ? 'Present' : formatDate(job.EndDate);
+        experiences.map((experience, index) => {
+          const startDate = formatDate(experience.StartDate);
+          const endDate = experience.CurrentJob ? 'Present' : formatDate(experience.EndDate);
           const duration = `${startDate} - ${endDate}`;
 
           return (
             <div
-              key={job.JID}
+              key={experience.XID}
               className={`timeline-card ${
                 index % 2 === 0 ? "fly-in-left" : "fly-in-right"
               }`}
             >
-              <h2>{job.Title}</h2>
-              <h3>{job.Company}</h3>
-              <p className="location">{job.Location}</p>
+              <h2>{experience.Title}</h2>
+              <h3>{experience.Company}</h3>
+              <p className="location">{experience.Location}</p>
               <p className="duration">{duration}</p>
-              {job.CurrentJob ? <span className="current-badge">Current</span> : null}
-              <p>{job.Description}</p>
+              {experience.CurrentJob ? <span className="current-badge">Current</span> : null}
+              <p>{experience.Description}</p>
             </div>
           );
         })
