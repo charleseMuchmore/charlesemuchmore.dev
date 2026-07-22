@@ -3,20 +3,37 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
     margin-top: 30px;
+    align-items: start;
 }
 
 .joy-card {
+    display: block;
+    width: 100%;
+    text-align: left;
     background: linear-gradient(135deg, #fff5e6 0%, #fffbf0 100%);
     border: 2px solid #ffd700;
     border-radius: 8px;
     padding: 20px;
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(255, 215, 0, 0.1);
+    cursor: pointer;
 }
 
 .joy-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 12px rgba(255, 215, 0, 0.2);
+}
+
+.joy-card.expanded {
+    background: linear-gradient(135deg, #fffaf0 0%, #fff1d6 100%);
+}
+
+.joy-toggle-label {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .joy-header {
@@ -41,10 +58,12 @@
 }
 
 .joy-description {
-    color: #555;
-    font-size: 14px;
-    line-height: 1.6;
-    margin: 12px 0;
+    color: #444;
+    font-size: 16px;
+    line-height: 1.8;
+    margin: 14px 0;
+    word-break: break-word;
+    white-space: pre-wrap;
 }
 
 .joy-category {

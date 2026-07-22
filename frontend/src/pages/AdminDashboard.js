@@ -11,12 +11,27 @@ import './AdminDashboard.css';
 
 function AdminDashboard() {
     const [activeTab, setActiveTab] = useState('users');
+    const [menuOpen, setMenuOpen] = useState(false);
     const { logout } = useAuth();
     const navigate = useNavigate();
+
+    const tabLabels = {
+        users: 'Users',
+        projects: 'Projects',
+        experiences: 'Experiences',
+        joys: 'Joys',
+        entries: 'Journal',
+        tags: 'Tags'
+    };
 
     const handleLogout = () => {
         logout();
         navigate('/');
+    };
+
+    const handleTabClick = (tab) => {
+        setActiveTab(tab);
+        setMenuOpen(false);
     };
 
     return (
@@ -26,43 +41,56 @@ function AdminDashboard() {
                 <button className="logout-btn" onClick={handleLogout}>Logout</button>
             </div>
 
-            <div className="admin-tabs">
-                <button 
-                    className={`tab-btn ${activeTab === 'users' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('users')}
+            <div className="admin-tabs-wrapper">
+                <button
+                    className="mobile-menu-toggle"
+                    type="button"
+                    onClick={() => setMenuOpen((open) => !open)}
+                    aria-expanded={menuOpen}
+                    aria-controls="admin-tabs"
                 >
-                    Users
+                    <span className="mobile-menu-icon">☰</span>
+                    {tabLabels[activeTab]}
                 </button>
-                <button 
-                    className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('projects')}
-                >
-                    Projects
-                </button>
-                <button 
-                    className={`tab-btn ${activeTab === 'experiences' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('experiences')}
-                >
-                    Experiences
-                </button>
-                <button 
-                    className={`tab-btn ${activeTab === 'joys' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('joys')}
-                >
-                    Joys
-                </button>
-                <button 
-                    className={`tab-btn ${activeTab === 'entries' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('entries')}
-                >
-                    Journal
-                </button>
-                <button 
-                    className={`tab-btn ${activeTab === 'tags' ? 'active' : ''}`}
-                    onClick={() => setActiveTab('tags')}
-                >
-                    Tags
-                </button>
+
+                <div id="admin-tabs" className={`admin-tabs ${menuOpen ? 'open' : ''}`}>
+                    <button 
+                        className={`tab-btn ${activeTab === 'users' ? 'active' : ''}`}
+                        onClick={() => handleTabClick('users')}
+                    >
+                        Users
+                    </button>
+                    <button 
+                        className={`tab-btn ${activeTab === 'projects' ? 'active' : ''}`}
+                        onClick={() => handleTabClick('projects')}
+                    >
+                        Projects
+                    </button>
+                    <button 
+                        className={`tab-btn ${activeTab === 'experiences' ? 'active' : ''}`}
+                        onClick={() => handleTabClick('experiences')}
+                    >
+                        Experiences
+                    </button>
+                    <button 
+                        className={`tab-btn ${activeTab === 'joys' ? 'active' : ''}`}
+                        onClick={() => handleTabClick('joys')}
+                    >
+                        Joys
+                    </button>
+                    <button 
+                        className={`tab-btn ${activeTab === 'entries' ? 'active' : ''}`}
+                        onClick={() => handleTabClick('entries')}
+                    >
+                        Journal
+                    </button>
+                    <button 
+                        className={`tab-btn ${activeTab === 'tags' ? 'active' : ''}`}
+                        onClick={() => handleTabClick('tags')}
+                    >
+                        Tags
+                    </button>
+                </div>
             </div>
 
             <div className="admin-content">
