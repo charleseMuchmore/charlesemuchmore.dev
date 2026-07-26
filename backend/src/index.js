@@ -8,6 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors({
     origin: [
+        "http://localhost:3000",
         "http://localhost:3002",
         "https://charlese.website",
         "https://www.charlese.website"
@@ -25,6 +26,7 @@ app.use("/joys", require("./routes/joys"));
 app.use("/projects", require("./routes/projects"));
 app.use("/tags", require("./routes/tags"));
 app.use("/users", require("./routes/users"));
+app.use("/analytics", require("./routes/analytics"));
 app.get("/health", (req, res) => {
     res.json({ status: "OK" });
 });
