@@ -5,6 +5,7 @@ import AdminExperiencesTab from '../components/AdminExperiencesTab';
 import AdminJoysTab from '../components/AdminJoysTab';
 import AdminEntriesTab from '../components/AdminEntriesTab';
 import AdminTagsTab from '../components/AdminTagsTab';
+import AdminAnalyticsTab from '../components/AdminAnalyticsTab';
 import { useAuth } from '../context/authcontext';
 import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css';
@@ -21,7 +22,8 @@ function AdminDashboard() {
         experiences: 'Experiences',
         joys: 'Joys',
         entries: 'Journal',
-        tags: 'Tags'
+        tags: 'Tags',
+        analytics: 'Analytics'
     };
 
     const handleLogout = () => {
@@ -90,6 +92,12 @@ function AdminDashboard() {
                     >
                         Tags
                     </button>
+                    <button 
+                        className={`tab-btn ${activeTab === 'analytics' ? 'active' : ''}`}
+                        onClick={() => handleTabClick('analytics')}
+                    >
+                        Analytics
+                    </button>
                 </div>
             </div>
 
@@ -100,6 +108,7 @@ function AdminDashboard() {
                 {activeTab === 'joys' && <AdminJoysTab />}
                 {activeTab === 'entries' && <AdminEntriesTab />}
                 {activeTab === 'tags' && <AdminTagsTab />}
+                {activeTab === 'analytics' && <AdminAnalyticsTab />}
             </div>
         </div>
     );
