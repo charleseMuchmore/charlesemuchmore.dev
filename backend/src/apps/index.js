@@ -1,7 +1,7 @@
-const sudokuApp = require('./sudoku');
+const coffeeApp = require('./coffee');
 
 const apps = {
-  sudoku: sudokuApp,
+  coffee: coffeeApp,
 };
 
 module.exports = { apps };

@@ -14,6 +14,7 @@ const NavBar = () => {
             <NavLink className="nav-link border auto-pad link" to="/Joy">Joy</NavLink>
             {/* <NavLink className="nav-link border auto-pad link" to="/Interests">Interests</NavLink> */}
             <NavLink className="nav-link border auto-pad link" to="/Contact">Contact</NavLink>
+            <NavLink className="nav-link border auto-pad link" to="/Apps">Apps</NavLink>
         </div>
     )
 }

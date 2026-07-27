@@ -16,6 +16,8 @@ import Journal from './pages/Journal';
 import Joy from './pages/Joy';
 import Interests from './pages/Interests';
 import Contact from './pages/Contact';
+import Apps from './pages/Apps';
+import Coffee from './pages/Coffee';
 import AdminDashboard from './pages/AdminDashboard';
 
 import ProjectsContext from './context/projects';
@@ -44,6 +46,8 @@ function App() {
           <Route path="/Joy" element={<Joy />} />
           <Route path="/Interests" element={<Interests />} />
           <Route path="/Contact" element={<Contact />} />
+          <Route path="/Apps" element={<Apps />} />
+          <Route path="/Coffee" element={<Coffee />} />
           <Route 
             path="/Admin"
             element={
