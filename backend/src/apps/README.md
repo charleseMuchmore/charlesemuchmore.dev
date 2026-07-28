@@ -11,8 +11,8 @@ Each app in `backend/src/apps/` is an isolated mini-application that exposes its
 Recommended structure for each app:
 
 - `index.js` - exports the app router and metadata
-- `router.js` - defines routes for the app
-- `controller.js` - request handlers
+- `router.js` - defines routes for the app, generic
+- `controller.js` - request handlers, generic
 - `service.js` - app-specific business logic
 - `validation.js` - request validation middleware
 - `model.js` - data model or helper utilities (optional)
@@ -37,3 +37,6 @@ The `sudoku` app is a starter example:
 - Share only generic middleware and services from `backend/src/middleware/` and `backend/src/services/`
 - Avoid cross-app dependencies
 - Keep route names stable so frontend can discover apps reliably
+
+
+I actually really like the idea of each app just having a "start" and an "action" endpoint. And then in the payload for the "action", is the actual app-specific request.

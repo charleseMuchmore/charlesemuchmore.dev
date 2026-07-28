@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3001/api/apps/coffee';
+const API_URL = "https://charlese.website/api/apps/coffee";
 
 function Coffee() {
   const [character, setCharacter] = useState('barista');
@@ -14,15 +14,34 @@ function Coffee() {
     day: 1,
     character: 'barista',
   });
+  const [currentOrder, setCurrentOrder] = useState('ltte');
   const [result, setResult] = useState('Order or make a drink to see the response.');
 
-  //*
-  const makeDrink = async () => {
+  const getInfo = async () => {
     try {
-      const response = await axios.post(`${API_URL}/solve`, { board: [[1, 2, 3, 4, 5, 6, 7, 8, 9]] });
+      const response = await axios.get(API_URL);
+        setResult(JSON.stringify(response.data, null, 2));
+    } catch (error) {
+      setResult(error.response?.data?.error || 'Failed to fetch info.');
+    }
+  };
+
+  const takeOrder = async () => {
+    try {
+      const response = await axios.post(`${API_URL}/order`, { gameState });
+      setCurrentOrder(response.data.order);
       setResult(JSON.stringify(response.data, null, 2));
     } catch (error) {
-      setResult(error.response?.data?.error || 'Failed to solve puzzle.');
+      setResult(error.response?.data?.error || 'Failed to take order.');
+    }
+  };
+
+  const makeDrink = async () => {
+    try {
+        const response = await axios.post(`${API_URL}/make`, { gameState, order: currentOrder });
+        setResult(JSON.stringify(response.data, null, 2));
+    } catch (error) {
+        setResult(error.response?.data?.error || 'Failed to make drink.');
     }
   };
 
@@ -48,12 +67,15 @@ function Coffee() {
         <label htmlFor="character">Character </label>
         <select id="character" value={character} onChange={(e) => setCharacter(e.target.value)}>
           <option value="barista">Barista</option>
-          <option value="customer">Customer</option>
+          {/* <option value="customer">Customer</option> */}
         </select>
       </div>
 
       <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem' }}>
+        <button onClick={getInfo}>Get Info</button>
         <button onClick={resetGame}>Reset</button>
+        <button onClick={takeOrder}>Take Order</button>
+        <button onClick={makeDrink}>Make Latte</button>
       </div>
 
       <h3>Current state</h3>

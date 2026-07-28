@@ -1,120 +1,141 @@
-const validation = require('./validation');
-
 const MENU = {
   espresso: {
     ingredients: {
-      water: 50,
       beans: 18,
+      cups: 1,
     },
     cost: 1.5,
   },
   latte: {
     ingredients: {
-      water: 200,
       milk: 150,
       beans: 24,
+      cups: 1,
     },
     cost: 2.5,
   },
   cappuccino: {
     ingredients: {
-      water: 250,
       milk: 100,
       beans: 24,
+      cups: 1,
     },
     cost: 3.0,
   },
 };
 
-function resetGame() {
-  return {
-    message: 'Game reset successfully.',
-    state: {
-      water: 500,
-      beans: 250,
-      milk: 400,
-      money: 0,
-      inventory: [],
-      day: 1,
-      character: 'barista',
-    },
-  };
-}
+const start = () => {
+    return {
+        day: 1,
+        money: 0,
+        inventory: {
+            beans: 100,
+            milk: 100,
+            cups: 25
+        },
+        currentOrder: null,
+        completedOrders: 0
+    };
+};
 
-function order(gameState) {
-  validation.validateGameState({ body: { gameState } }, {}, () => {});
-  const menuItems = Object.keys(MENU);
-  const randomIndex = Math.floor(Math.random() * menuItems.length);
-  const randomDrink = menuItems[randomIndex];
-  return {
-    order: randomDrink,
-  };
-}
-
-function make(gameState, orderName) {
-  validation.validateGameState({ body: { gameState } }, {}, () => {});
-  validation.validateOrder({ body: { order: orderName } }, {}, () => {});
-
-  const menuItem = MENU[orderName];
-  if (!menuItem) {
-    return { error: `Unknown order: ${orderName}.` };
-  }
-
-  for (const ingredient in menuItem.ingredients) {
-    if (gameState[ingredient] >= menuItem.ingredients[ingredient]) {
-      gameState[ingredient] -= menuItem.ingredients[ingredient];
-    } else {
-      return { error: `Not enough ${ingredient} to make this drink.` };
+const processAction = (gameState, action) => {
+    switch (action.type) {
+        case "GENERATE_ORDER":
+            return generateOrder(gameState);
+        case "MAKE_DRINK":
+            return makeDrink(gameState, action.drink);
+        case "SERVE_DRINK":
+            return serveDrink(gameState);
+        case "ADVANCE_DAY":
+            return advanceDay(gameState);
+        case "REFILL":
+            return refillInventory(gameState, action.payload);
+        default:
+            return gameState;
     }
-  }
+};
 
-  gameState.money += menuItem.cost;
+const generateOrder = (gameState) => {
+    const menuItems = Object.keys(MENU);
+    const randomIndex = Math.floor(Math.random() * menuItems.length);
+    const randomDrink = menuItems[randomIndex];
+    
+    return {
+        ...gameState,
+        currentOrder: randomDrink
+    };
+};
 
-  return {
-    message: `The ${orderName} is ready.`,
-    state: gameState,
-  };
-}
+const makeDrink = (gameState, drinkName) => {
+    if (!drinkName || !MENU[drinkName]) {
+        return gameState;
+    }
+    
+    const menuItem = MENU[drinkName];
+    const ingredients = menuItem.ingredients;
+    
+    // Check if we have enough ingredients
+    for (const ingredient in ingredients) {
+        if (!gameState.inventory[ingredient] || gameState.inventory[ingredient] < ingredients[ingredient]) {
+            return gameState;
+        }
+    }
+    
+    // Consume ingredients
+    const newInventory = { ...gameState.inventory };
+    for (const ingredient in ingredients) {
+        newInventory[ingredient] -= ingredients[ingredient];
+    }
+    
+    return {
+        ...gameState,
+        inventory: newInventory
+    };
+};
 
-function restock(gameState) {
-  validation.validateGameState({ body: { gameState } }, {}, () => {});
+const serveDrink = (gameState) => {
+    if (!gameState.currentOrder) {
+        return gameState;
+    }
+    
+    const drink = gameState.currentOrder;
+    const menuItem = MENU[drink];
+    const cost = menuItem.cost;
+    
+    return {
+        ...gameState,
+        money: gameState.money + cost,
+        completedOrders: gameState.completedOrders + 1,
+        currentOrder: null
+    };
+};
 
-  gameState.water += 500;
-  gameState.beans += 100;
-  gameState.milk += 200;
+const advanceDay = (gameState) => {
+    return {
+        ...gameState,
+        day: gameState.day + 1,
+        currentOrder: null
+    };
+};
 
-  return {
-    message: 'Successfully restocked ingredients.',
-    state: gameState,
-  };
-}
-
-function quit() {
-  const newState = resetGame().state;
-  return {
-    message: 'Bye.',
-    state: newState,
-  };
-}
-
-function report(gameState) {
-  validation.validateGameState({ body: { gameState } }, {}, () => {});
-  return { gameState };
-}
-
-function advanceDay(gameState) {
-  validation.validateGameState({ body: { gameState } }, {}, () => {});
-  return {
-    message: 'This is a stub advanceDay function. Replace with real coffee advanceDay logic.',
-  };
-}
+const refillInventory = (gameState, payload) => {
+    const newInventory = { ...gameState.inventory };
+    
+    if (payload) {
+        for (const ingredient in payload) {
+            if (newInventory[ingredient] !== undefined) {
+                newInventory[ingredient] += payload[ingredient];
+            }
+        }
+    }
+    
+    return {
+        ...gameState,
+        inventory: newInventory
+    };
+};
 
 module.exports = {
-  resetGame,
-  order,
-  make,
-  restock,
-  quit,
-  report,
-  advanceDay,
+    start,
+    processAction
 };
