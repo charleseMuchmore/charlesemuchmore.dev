@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import "./Coffee.css";
 
 const API_URL = "https://charlese.website/api/apps/coffee";
 
@@ -113,29 +114,50 @@ function Coffee() {
   return (
     <div style={{ padding: '2rem', maxWidth: '900px', margin: '0 auto' }}>
       <h1>Coffee Shop Simulator</h1>
-      <p>Test the refactored coffee app backend with the new unified API.</p>
+      <p>(currently a work in progress)</p>
+        {!gameState && (<div>
+            <div style={{ gap: '0.75rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+            <button onClick={startGame} className="button-55">Start Game</button>
+        </div>
+        </div>)}
 
-      <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
-        <button onClick={startGame} style={{ fontWeight: 'bold' }}>Start Game</button>
-        <button onClick={generateOrder}>Generate Order</button>
-        <button onClick={() => makeDrink('espresso')}>Make Espresso</button>
-        <button onClick={() => makeDrink('latte')}>Make Latte</button>
-        <button onClick={() => makeDrink('cappuccino')}>Make Cappuccino</button>
-        <button onClick={serveDrink}>Serve Drink</button>
-        <button onClick={refillInventory}>Refill Inventory</button>
-        <button onClick={advanceDay}>Advance Day</button>
-        <button onClick={resetGame}>Reset</button>
-      </div>
+        {gameState && (<div>
 
-      <h3>Current Game State</h3>
-      <pre style={{ backgroundColor: '#f5f5f5', padding: '1rem', overflow: 'auto' }}>
-        {gameState ? JSON.stringify(gameState, null, 2) : 'No game state yet'}
-      </pre>
+        <div>
+            <pre style={{ backgroundColor: '#f5f5f5', padding: '1rem', overflow: 'auto' }}>
+                <div style={{border: '1px solid #ccc', padding: '10px', marginBottom: '10px'}}>
+                    <div className="button-54">Day: {gameState?.day}</div>
+                    <div className="button-54">Money: {gameState?.money}</div>
+                    <div className="button-54">Completed Orders: {gameState?.completedOrders}</div>
+                </div>
+                <div className="button-54">Current Order: 
+                    <br /><b>{gameState?.currentOrder}</b>
+                </div>
+                {gameState ? JSON.stringify({inventory: gameState.inventory}, null, 2) : 'No game state yet'}
+            </pre>
+        </div>
 
-      <h3>Backend Response</h3>
+        <div className="coffee-machine">
+            <button className="button-50" onClick={generateOrder}>Generate Order</button>
+            <button className="button-50" onClick={() => makeDrink('espresso')}>Make Espresso</button>
+            <button className="button-50" onClick={() => makeDrink('latte')}>Make Latte</button>
+            <button className="button-50" onClick={() => makeDrink('cappuccino')}>Make Cappuccino</button>
+            <button className="button-50" onClick={serveDrink}>Serve Drink</button>
+            <button className="button-50" onClick={refillInventory}>Refill Inventory</button>
+            <button className="button-50" onClick={advanceDay}>Advance Day</button>
+        </div>
+
+        <div style={{ gap: '0.75rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+        <button className="button-55" onClick={resetGame}>Quit</button>
+        </div>
+
+        </div>)}
+
+      {/* <h3>Backend Response</h3>
       <pre style={{ backgroundColor: '#f5f5f5', padding: '1rem', overflow: 'auto' }}>
         {result}
-      </pre>
+      </pre> */}
+    
     </div>
   );
 }
