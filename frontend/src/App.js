@@ -23,6 +23,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import ProjectsContext from './context/projects';
 // import { AuthProvider } from './context/authcontext';
 import ProtectedRoute from './components/ProtectedRoute';
+import AnalyticsTracker from './components/AnalyticsTracker';
 
 function App() {
     const [message] = useState('');
@@ -34,6 +35,7 @@ function App() {
 
     return (
       <div className="App">
+      <AnalyticsTracker />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
