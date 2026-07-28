@@ -12,20 +12,9 @@ router.get('/', (req, res) => {
   res.json({ apps: appList });
 });
 
-router.use('/:appName', (req, res, next) => {
-  const { appName } = req.params;
-  const appEntry = apps[appName];
-
-  if (!appEntry) {
-    return res.status(404).json({ error: 'App not found.' });
-  }
-
-  req.appEntry = appEntry;
-  next();
-});
-
-router.use('/:appName', (req, res, next) => {
-  req.appEntry.router(req, res, next);
-});
+// Mount each app's router at a fixed path
+for (const [name, appEntry] of Object.entries(apps)) {
+  router.use(`/${name}`, appEntry.router);
+}
 
 module.exports = router;
