@@ -18,6 +18,7 @@ import Interests from './pages/Interests';
 import Contact from './pages/Contact';
 import Apps from './pages/Apps';
 import Coffee from './pages/apps/Coffee';
+import Pong from './pages/apps/Pong';
 import AdminDashboard from './pages/AdminDashboard';
 
 import ProjectsContext from './context/projects';
@@ -50,6 +51,7 @@ function App() {
           <Route path="/Contact" element={<Contact />} />
           <Route path="/Apps" element={<Apps />} />
           <Route path="/Coffee" element={<Coffee />} />
+          <Route path="/Pong" element={<Pong />} />
           <Route 
             path="/Admin"
             element={
