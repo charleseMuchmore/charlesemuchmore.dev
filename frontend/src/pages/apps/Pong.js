@@ -232,7 +232,8 @@ function Pong() {
   return (
     <div style={{ padding: '2rem', maxWidth: '900px', margin: '0 auto' }}>
       <h1>Ping Pong</h1>
-      <p>(Use W and S for the left player, and the up and down arrows for the right player.)</p>
+      <p>Use W and S for the left player, and the up and down arrows for the right player.</p>
+      <p>(Please note this game doesn't work on mobile yet!)</p>
       {!gameState && (
         <div>
           <div style={{ gap: '0.75rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
