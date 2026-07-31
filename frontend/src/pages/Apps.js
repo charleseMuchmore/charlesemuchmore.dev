@@ -7,7 +7,8 @@ function Apps() {
       <h1>Apps</h1>
       <p>Choose an app to explore.</p>
       <ul>
-        <li><Link to="/Coffee">Coffee</Link></li>
+        <li><Link to="/Coffee">Coffee Shop Simulator</Link></li>
+        <li><Link to="/Pong">Ping Pong</Link></li>
       </ul>
     </div>
   );
