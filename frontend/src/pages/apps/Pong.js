@@ -257,8 +257,6 @@ function Pong() {
         </div>
       )}
 
-      <p>{result}</p>
-      <p>Score: {score.left} - {score.right}</p>
     </div>
   );
 }
