@@ -17,7 +17,7 @@ import Joy from './pages/Joy';
 import Interests from './pages/Interests';
 import Contact from './pages/Contact';
 import Apps from './pages/Apps';
-import Coffee from './pages/Coffee';
+import Coffee from './pages/apps/Coffee';
 import AdminDashboard from './pages/AdminDashboard';
 
 import ProjectsContext from './context/projects';
